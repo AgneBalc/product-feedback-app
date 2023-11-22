@@ -19,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${jost.className} bg-gray-100`}>{children}</body>
+      <body className={`${jost.className} bg-grayLightest text-grayDark`}>
+        {children}
+      </body>
     </html>
   );
 }

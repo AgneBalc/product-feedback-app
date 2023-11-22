@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl font-bold -tracking-[.333px];
+  }
+
+  h2 {
+    @apply text-xl font-bold -tracking-[.25px];
+  }
+
+  h3 {
+    @apply text-lg font-bold -tracking-[.25px];
+  }
+
+  h4 {
+    @apply text-sm font-bold -tracking-[.194px];
+  }
+}

@@ -10,19 +10,36 @@ module.exports = {
       purple: "#AD1FEA",
       white: "#FFFFFF",
       orange: "#F49F85",
-      gray: {
-        100: "#F7F8FD",
-        200: "#F2F4FF",
-        300: "#647196",
-        400: "#3A4374",
+      grayLightest: "#F7F8FD",
+      grayLight: "#F2F4FF",
+      gray: "#647196",
+      grayDark: "#3A4374",
+      blueLight: "#62BCFA",
+      blue: "#4661E6",
+      blueDark: "#373F68",
+    },
+    borderRadius: {
+      sm: "5px",
+      md: "10px",
+    },
+    extend: {
+      backgroundImage: {
+        desktop: "url(/suggestions/desktop/background-header.png)",
+        tablet: "url(/suggestions/tablet/background-header.png)",
+        mobile: "url(/suggestions/mobile/background-header.png)",
       },
-      blue: {
-        100: "#62BCFA",
-        200: "#4661E6",
-        300: "#373F68",
+      fontSize: {
+        "body-1": "text-base",
+        "body-2": ["15px", "22px"],
+        "body-3": [
+          "13px",
+          {
+            lineHeight: "19px",
+            fontWeight: 600,
+          },
+        ],
       },
     },
-    extend: {},
   },
   plugins: [],
 };
