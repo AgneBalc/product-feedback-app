@@ -8,15 +8,19 @@ module.exports = {
   theme: {
     colors: {
       purple: "#AD1FEA",
-      blue: "#4661E6",
-      darkBlue: "#373F68",
       white: "#FFFFFF",
-      lightGray: "#F2F4FF",
-      extraLightGray: "#F7F8FD",
-      gray: "#3A4374",
-      mediumGray: "#647196",
       orange: "#F49F85",
-      skyBlue: "#62BCFA",
+      gray: {
+        100: "#F7F8FD",
+        200: "#F2F4FF",
+        300: "#647196",
+        400: "#3A4374",
+      },
+      blue: {
+        100: "#62BCFA",
+        200: "#4661E6",
+        300: "#373F68",
+      },
     },
     extend: {},
   },
