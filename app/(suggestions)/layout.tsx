@@ -1,9 +1,9 @@
-import Sidebar from "./_components/Sidebar";
+import Navbar from "./_components/Navbar";
 
 const SuggestionsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
-      <Sidebar />
+      <Navbar />
       {children}
     </main>
   );
