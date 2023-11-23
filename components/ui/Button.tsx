@@ -2,20 +2,25 @@ import { VariantProps, cva } from "class-variance-authority";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva("border-none", {
-  variants: {
-    variant: {
-      ghost: "bg-transparent",
+const buttonVariants = cva(
+  "border-none inline-flex justify-center items-center transition-colors focus:outline-none",
+  {
+    variants: {
+      variant: {
+        ghost: "bg-transparent",
+        light:
+          "bg-grayLight text-blue hover:bg-[#CFD7FF] active:bg-blue active:text-white",
+      },
+      size: {
+        sm: "rounded-md h-[30px] px-4",
+      },
     },
-    size: {
-      sm: "rounded-md",
+    defaultVariants: {
+      size: "sm",
+      variant: "ghost",
     },
-  },
-  defaultVariants: {
-    size: "sm",
-    variant: "ghost",
-  },
-});
+  }
+);
 
 // It is our ButtonProps interafce it extends ButtonHTMLAttributes of HTMLButtonElement interface
 // Also extends from class-variance-authority lastly we passed our forwarded Reference type
