@@ -6,11 +6,13 @@ import MobileSidebar from "./MobileSidebar";
 
 const Navbar = () => {
   return (
-    <nav className="relative sm:w-56 lg:w-64 w-full">
+    <nav className="relative lg:w-64 w-full sm:grid h-[72px] sm:h-auto sm:grid-cols-3 sm:gap-[10px] lg:gap-6 lg:grid-flow-row">
       <Logo />
       <MobileSidebar />
-      <Filter />
-      <RoadmapInfo />
+      <div className="sm:grid sm:grid-cols-2 sm:col-span-2 sm:gap-[10px] hidden lg:gap-6 lg:col-span-3 lg:grid-flow-row">
+        <Filter />
+        <RoadmapInfo />
+      </div>
     </nav>
   );
 };
