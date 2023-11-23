@@ -6,7 +6,7 @@ import MobileSidebar from "./MobileSidebar";
 
 const Navbar = () => {
   return (
-    <nav className="relative">
+    <nav className="relative sm:w-56 lg:w-64 w-full">
       <Logo />
       <MobileSidebar />
       <Filter />

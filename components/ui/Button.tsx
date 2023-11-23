@@ -15,10 +15,6 @@ const buttonVariants = cva(
         sm: "rounded-md h-[30px] px-4",
       },
     },
-    defaultVariants: {
-      size: "sm",
-      variant: "ghost",
-    },
   }
 );
 
