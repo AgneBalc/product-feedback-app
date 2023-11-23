@@ -16,7 +16,7 @@
   }
 
   h2 {
-    @apply text-xl font-bold -tracking-[.25px];
+    @apply text-[15px] -tracking-[.187px] sm:text-xl font-semibold sm:tracking-[.25px];
   }
 
   h3 {
