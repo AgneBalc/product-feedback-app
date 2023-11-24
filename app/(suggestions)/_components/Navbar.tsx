@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Filter from "./Filter";
 import RoadmapInfo from "./RoadmapInfo";
 import Logo from "./Logo";
