@@ -1,5 +1,11 @@
+import ActionsBar from "./_components/ActionsBar";
+
 const SuggestionsPage = () => {
-  return <div>SuggestionsPage</div>;
+  return (
+    <>
+      <ActionsBar />
+    </>
+  );
 };
 
 export default SuggestionsPage;
