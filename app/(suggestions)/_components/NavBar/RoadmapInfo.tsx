@@ -11,7 +11,7 @@ const RoadmapInfo = ({ onCloseMenu }: RoadmapInfoProps) => {
   return (
     <div className="bg-white rounded-md px-6 pb-6 pt-[19px] flex flex-col gap-6">
       <div className="flex justify-between items-center">
-        <h3>Roadmap</h3>
+        <h3 className="text-head-3">Roadmap</h3>
         <Button
           onClick={onCloseMenu}
           disabled={isDisabled}

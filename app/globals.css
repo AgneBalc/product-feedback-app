@@ -9,21 +9,3 @@
   padding: 0;
   margin: 0;
 }
-
-@layer base {
-  h1 {
-    @apply text-2xl font-bold -tracking-[.333px];
-  }
-
-  h2 {
-    @apply text-[15px] -tracking-[.187px] sm:text-xl font-semibold sm:tracking-[.25px];
-  }
-
-  h3 {
-    @apply text-lg font-bold -tracking-[.25px];
-  }
-
-  h4 {
-    @apply text-[13px] sm:text-sm font-medium tracking-[.194px];
-  }
-}

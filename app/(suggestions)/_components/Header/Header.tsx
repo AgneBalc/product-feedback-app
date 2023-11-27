@@ -12,15 +12,15 @@ const Header = () => {
           width={23}
           height={24}
         />
-        <h3>6 Suggestions</h3>
+        <h3 className="text-head-3">6 Suggestions</h3>
       </div>
       <SortByButton />
       <Button
         variant="purple"
         size="md"
-        className="sm:absolute sm:right-3 lg:right-4"
+        className="sm:absolute sm:right-3 lg:right-4 text-[13px] font-medium sm:text-head-4"
       >
-        <h4>+ Add Feedback</h4>
+        + Add Feedback
       </Button>
     </header>
   );

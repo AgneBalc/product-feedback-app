@@ -30,12 +30,16 @@ module.exports = {
         md: "10px",
       },
       fontSize: {
+        "head-1": ["24px", { fontWeight: 700, letterSpacing: "0.333px" }],
+        "head-2": ["20px", { fontWeight: 600, letterSpacing: "0.25px" }],
+        "head-3": ["18px", { fontWeight: 700, letterSpacing: "-0.25px" }],
+        "head-4": ["14px", { fontWeight: 500, letterSpacing: "0.194px" }],
         "body-2": ["15px", "22px"],
         "body-3": [
           "13px",
           {
             lineHeight: "19px",
-            fontWeight: 600,
+            fontWeight: 700,
           },
         ],
       },
