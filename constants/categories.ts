@@ -14,3 +14,10 @@ export const status = [
     bgColor: "bg-blueLight",
   },
 ];
+
+export const sortItems = [
+  "Most Upvotes",
+  "Least Upvotes",
+  "Most Comments",
+  "Least Comments",
+];

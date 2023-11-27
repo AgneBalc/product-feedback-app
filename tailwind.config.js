@@ -40,6 +40,9 @@ module.exports = {
           },
         ],
       },
+      boxShadow: {
+        "3xl": "0px 10px 40px -7px rgba(55, 63, 104, 0.35)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
