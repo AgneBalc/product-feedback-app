@@ -24,6 +24,6 @@
   }
 
   h4 {
-    @apply text-sm font-bold -tracking-[.194px];
+    @apply text-[13px] sm:text-sm font-medium tracking-[.194px];
   }
 }

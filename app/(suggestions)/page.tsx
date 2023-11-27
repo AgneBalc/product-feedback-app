@@ -1,9 +1,9 @@
-import ActionsBar from "./_components/ActionsBar";
+import Header from "./_components/Header";
 
 const SuggestionsPage = () => {
   return (
     <>
-      <ActionsBar />
+      <Header />
     </>
   );
 };

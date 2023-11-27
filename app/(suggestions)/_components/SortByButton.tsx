@@ -11,7 +11,7 @@ const SortByButton = () => {
   const [checked, setChecked] = useState("Most Upvotes");
 
   return (
-    <>
+    <div className="relative h-full flex items-center">
       <div className="text-sm flex gap-2 items-center">
         <Button
           onClick={() => setIsSortOpen((prev) => !prev)}
@@ -44,11 +44,15 @@ const SortByButton = () => {
         )}
       </div>
       {isSortOpen && (
-        <Dropdown classes="top-14 rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
+        <Dropdown classes="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
           {sortItems.map((item) => {
             return (
               <div
-                onClick={() => setChecked(item)}
+                key={item}
+                onClick={() => {
+                  setChecked(item);
+                  setIsSortOpen(false);
+                }}
                 className="text-gray text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
               >
                 <span>{item}</span>
@@ -65,7 +69,7 @@ const SortByButton = () => {
           })}
         </Dropdown>
       )}
-    </>
+    </div>
   );
 };
 

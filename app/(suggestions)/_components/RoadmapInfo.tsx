@@ -9,7 +9,7 @@ interface RoadmapInfoProps {
 const RoadmapInfo = ({ onCloseMenu }: RoadmapInfoProps) => {
   const isDisabled = false;
   return (
-    <div className="bg-white rounded-md px-6 pb-6 pt-[19px] flex flex-col gap-6 lg:col-span-3">
+    <div className="bg-white rounded-md px-6 pb-6 pt-[19px] flex flex-col gap-6">
       <div className="flex justify-between items-center">
         <h3>Roadmap</h3>
         <Button

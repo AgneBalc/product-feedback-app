@@ -30,7 +30,6 @@ module.exports = {
         md: "10px",
       },
       fontSize: {
-        // "body-1": "text-base",
         "body-2": ["15px", "22px"],
         "body-3": [
           "13px",
