@@ -10,3 +10,65 @@ datasource db {
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
+enum CATEGORY_TYPE {
+  UI
+  UX
+  ENHANCEMENT
+  BUG
+  FETURE
+}
+
+enum STATUS {
+  SUGGESTIONS
+  PLANNED
+  INPROGRESS
+  LIVE
+}
+
+model Post {
+  id          String        @id @default(uuid())
+  title       String
+  category    CATEGORY_TYPE
+  status      STATUS
+  description String
+  author      User          @relation("created_posts", fields: [authorId], references: [id])
+  authorId    String        @map("author_id")
+  upvotedBy   User?         @relation("upvoted_posts", fields: [upvotedById], references: [id])
+  upvotedById String?       @map("upvoted_by_id")
+  comments    Comment[]
+
+  @@index([authorId])
+  @@index([upvotedById])
+  @@map("posts")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  username     String    @unique
+  image        String?
+  createdPosts Post[]    @relation("created_posts")
+  upvotedPosts Post[]    @relation("upvoted_posts")
+  comments     Comment[]
+
+  @@map("users")
+}
+
+model Comment {
+  id       String @id @default(uuid())
+  content  String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String @map("author_id")
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   String @map("post_id")
+
+  replies   Comment[] @relation("reply_to")
+  replyTo   Comment?  @relation("reply_to", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replyToId String?   @map("reply_to_id")
+
+  @@index([authorId])
+  @@index([postId])
+  @@index([replyToId])
+  @@map("comments")
+}
