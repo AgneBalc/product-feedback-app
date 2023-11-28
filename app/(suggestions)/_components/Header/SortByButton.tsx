@@ -21,27 +21,16 @@ const SortByButton = () => {
             Sort by : <span className="font-semibold">{checked}</span>
           </p>
         </Button>
-        {isSortOpen ? (
-          <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M1 6l4-4 4 4"
-              stroke="#FFFFFF"
-              strokeWidth="2"
-              fill="none"
-              fillRule="evenodd"
-            />
-          </svg>
-        ) : (
-          <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M1 1l4 4 4-4"
-              stroke="#FFFFFF"
-              strokeWidth="2"
-              fill="none"
-              fillRule="evenodd"
-            />
-          </svg>
-        )}
+        <Image
+          src={
+            isSortOpen
+              ? "/shared/icon-arrow-up-white.svg"
+              : "/shared/icon-arrow-down-white.svg"
+          }
+          alt="Arrow icon"
+          width={10}
+          height={7}
+        />
       </div>
       {isSortOpen && (
         <Dropdown classes="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">

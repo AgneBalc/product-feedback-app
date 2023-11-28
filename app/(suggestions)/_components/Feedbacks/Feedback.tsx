@@ -1,7 +1,12 @@
+"use client";
+
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import { useState } from "react";
 
 const Feedback = () => {
+  const [isVoted, setIsVoted] = useState(false);
+
   return (
     <div className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0">
       <div className="flex flex-col gap-2 sm:gap-1 sm:pl-20 hover:text-blue">
@@ -16,17 +21,28 @@ const Feedback = () => {
         </Button>
       </div>
       <Button
+        onClick={() => setIsVoted((prev) => !prev)}
         size="fixed"
         variant="light"
-        className="flex sm:flex-col items-center gap-[10px] sm:justify-between sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7"
+        className={`flex sm:flex-col items-center gap-[10px] sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 ${
+          isVoted && "bg-blue"
+        }`}
       >
         <Image
-          src="/shared/icon-arrow-up.svg"
+          src={
+            isVoted
+              ? "/shared/icon-arrow-up-white.svg"
+              : "/shared/icon-arrow-up-blue.svg"
+          }
           alt="Arrow up icon"
-          width={8}
-          height={4}
+          width={10}
+          height={7}
         />
-        <span className="text-body-3 text-grayDark active:text-white">112</span>
+        <span
+          className={`text-body-3 ${isVoted ? "text-white" : "text-grayDark"}`}
+        >
+          112
+        </span>
       </Button>
       <div className="flex justify-end items-center">
         <Button className="flex gap-1 h-8 sm:gap-2">

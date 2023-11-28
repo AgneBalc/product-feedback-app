@@ -5,7 +5,7 @@ import Image from "next/image";
 const Header = () => {
   return (
     <header className="bg-blueDark w-full h-14 sm:h-[72px] flex items-center text-white px-6 sm:pr-3 justify-between sm:justify-start sm:gap-[38px] relative sm:rounded-md">
-      <div className="sm:flex gap-4 hidden">
+      <div className="sm:flex gap-4 hidden items-center">
         <Image
           src="/suggestions/icon-suggestions.svg"
           alt="Bulb icon"
