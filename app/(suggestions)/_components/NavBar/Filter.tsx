@@ -1,6 +1,6 @@
 "use client";
 
-import { categories } from "@/constants/categories";
+import { categories } from "@/constants";
 import Button from "@/components/ui/Button";
 import { useState } from "react";
 

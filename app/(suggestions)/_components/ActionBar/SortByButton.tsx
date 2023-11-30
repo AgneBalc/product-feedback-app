@@ -2,7 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import { useState } from "react";
-import { sortItems } from "@/constants/categories";
+import { sortItems } from "@/constants";
 import Dropdown from "@/components/ui/Dropdown";
 import Image from "next/image";
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { status } from "@/constants/categories";
+import { status } from "@/constants";
 import Button from "@/components/ui/Button";
 
 interface RoadmapInfoProps {
