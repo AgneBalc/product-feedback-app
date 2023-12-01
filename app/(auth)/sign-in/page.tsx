@@ -1,11 +1,8 @@
 import Input from "@/components/ui/Input";
+import Label from "@/components/ui/Label";
 
 const SignInPage = () => {
-  return (
-    <div className="w-52 h-52 bg-white p-4">
-      <Input type="text" />
-    </div>
-  );
+  return <div>SignInPage</div>;
 };
 
 export default SignInPage;
