@@ -34,42 +34,40 @@ model Post {
   upvotes     Int           @default(0)
   description String
   author      User          @relation("created_posts", fields: [authorId], references: [id])
-  authorId    String        @map("author_id")
+  authorId    String
   upvotedBy   User?         @relation("upvoted_posts", fields: [upvotedById], references: [id])
-  upvotedById String?       @map("upvoted_by_id")
+  upvotedById String?
   comments    Comment[]
 
   @@index([authorId])
   @@index([upvotedById])
-  @@map("posts")
 }
 
 model User {
   id           String    @id @default(uuid())
   name         String
   username     String    @unique
+  email        String    @unique
+  password     String
   image        String?
   createdPosts Post[]    @relation("created_posts")
   upvotedPosts Post[]    @relation("upvoted_posts")
   comments     Comment[]
-
-  @@map("users")
 }
 
 model Comment {
   id       String @id @default(uuid())
   content  String @db.VarChar(250)
   author   User   @relation(fields: [authorId], references: [id])
-  authorId String @map("author_id")
+  authorId String
   post     Post   @relation(fields: [postId], references: [id])
-  postId   String @map("post_id")
+  postId   String
 
   replies   Comment[] @relation("reply_to")
   replyTo   Comment?  @relation("reply_to", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replyToId String?   @map("reply_to_id")
+  replyToId String?
 
   @@index([authorId])
   @@index([postId])
   @@index([replyToId])
-  @@map("comments")
 }

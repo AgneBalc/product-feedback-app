@@ -33,7 +33,7 @@ const SortByButton = () => {
         />
       </div>
       {isSortOpen && (
-        <Dropdown classes="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
+        <Dropdown className="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
           {sortItems.map((item) => {
             return (
               <div

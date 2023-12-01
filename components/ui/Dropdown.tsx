@@ -1,14 +1,14 @@
 import { cn } from "../../lib/utils";
 
-interface DropdownProps {
+interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  classes?: string;
+  className?: string;
 }
 
-const Dropdown = ({ children, classes, ...props }: DropdownProps) => {
+const Dropdown = ({ children, className, ...props }: DropdownProps) => {
   return (
     <div
-      className={cn("animate-in fade-in-25 absolute z-50", classes)}
+      className={cn("animate-in fade-in-25 absolute z-50", className)}
       {...props}
     >
       {children}
