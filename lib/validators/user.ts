@@ -29,3 +29,5 @@ export const UserValidator = z
     path: ["confirmPassword"],
     message: "Passwords do not match",
   });
+
+export type UserValidatorType = z.infer<typeof UserValidator>;

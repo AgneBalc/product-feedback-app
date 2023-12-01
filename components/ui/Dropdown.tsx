@@ -1,9 +1,6 @@
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
-interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  className?: string;
-}
+interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Dropdown = ({ children, className, ...props }: DropdownProps) => {
   return (
