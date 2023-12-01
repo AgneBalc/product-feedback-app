@@ -18,7 +18,7 @@ const ActionBar = () => {
       <Button
         variant="purple"
         size="md"
-        className="sm:absolute sm:right-3 lg:right-4 text-[13px] font-medium sm:text-head-4"
+        className="sm:absolute sm:right-3 lg:right-4"
       >
         + Add Feedback
       </Button>

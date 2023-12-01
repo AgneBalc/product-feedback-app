@@ -23,7 +23,7 @@ export default function RootLayout({
       lang="en"
       className={cn("bg-grayLightest text-grayDark", jost.className)}
     >
-      <body className="min-w-[375px] sm:max-w-[689px] lg:max-w-[1100px] mx-auto sm:pt-14 lg:pt-24 sm:pb-28 lg:pb-32 sm:px-4 pb-14">
+      <body className="sm:py-14 lg:pt-24 lg:pb-32 sm:px-4 pb-14">
         {children}
       </body>
     </html>

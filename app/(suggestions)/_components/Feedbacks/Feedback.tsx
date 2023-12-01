@@ -24,7 +24,7 @@ const Feedback = () => {
         onClick={() => setIsVoted((prev) => !prev)}
         size="fixed"
         variant="light"
-        className={`flex sm:flex-col items-center gap-[10px] sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 ${
+        className={`flex sm:flex-col items-center gap-[10px] justify-start sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 ${
           isVoted && "bg-blue"
         }`}
       >
