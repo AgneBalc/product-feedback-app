@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hash } from "bcrypt";
+import { z } from "zod";
 
 export const POST = async (req: Request) => {
   try {
