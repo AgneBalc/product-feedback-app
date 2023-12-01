@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hash } from "bcrypt";
-import { z } from "zod";
+import { UserValidator } from "@/lib/validators/user";
 
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
-    const { email, username, name, password, image } = body;
+    const { email, username, name, password, image } =
+      UserValidator.parse(body);
 
     const existingUserByEmail = await db.user.findUnique({
       where: { email },
