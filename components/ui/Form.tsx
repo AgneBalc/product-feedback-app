@@ -1,14 +1,21 @@
+import React from "react";
 import { cn } from "../../lib/utils";
+import { Form } from "formik";
 
-export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+export interface FormWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-const Form = ({ title, className, children, ...props }: FormProps) => {
+const FormWrapper = ({
+  title,
+  className,
+  children,
+  ...props
+}: FormWrapperProps) => {
   return (
-    <form
+    <div
       className={cn(
-        "bg-white rounded-md w-full px-6 sm:px-[42px] pt-11 sm:pt-[52px] pb-6 sm:pb-10",
+        "bg-white rounded-md w-full px-6 sm:px-[42px] pt-11 sm:pt-[52px] pb-6 sm:pb-10 text-[13px] sm:text-sm",
         className
       )}
       {...props}
@@ -16,9 +23,9 @@ const Form = ({ title, className, children, ...props }: FormProps) => {
       {title && (
         <h1 className="text-head-3 sm:text-head-1 mb-6 sm:mb-10">{title}</h1>
       )}
-      <div className="flex flex-col gap-6 w-full">{children}</div>
-    </form>
+      {children}
+    </div>
   );
 };
 
-export default Form;
+export default FormWrapper;
