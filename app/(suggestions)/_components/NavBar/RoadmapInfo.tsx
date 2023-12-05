@@ -6,6 +6,8 @@ interface RoadmapInfoProps {
   onCloseMenu?: () => void;
 }
 
+const statusList = status.slice(1);
+
 const RoadmapInfo = ({ onCloseMenu }: RoadmapInfoProps) => {
   const isDisabled = false;
   return (
@@ -28,7 +30,7 @@ const RoadmapInfo = ({ onCloseMenu }: RoadmapInfoProps) => {
         </Button>
       </div>
       <div className="flex flex-col gap-2">
-        {status.map((stat) => (
+        {statusList.map((stat) => (
           <div key={stat.name} className="text-gray flex justify-between">
             <div className="flex gap-4 items-center">
               <div className={`${stat.bgColor} w-2 h-2 rounded-full`} />

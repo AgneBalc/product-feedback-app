@@ -2,6 +2,9 @@ export const categories = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
 export const status = [
   {
+    name: "Suggestion",
+  },
+  {
     name: "Planned",
     bgColor: "bg-orange",
   },
