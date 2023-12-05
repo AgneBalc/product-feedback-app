@@ -14,6 +14,7 @@ import Button from "@/components/ui/Button";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 const initialValues = {
   username: "",
@@ -21,6 +22,7 @@ const initialValues = {
 };
 
 const SignInForm = () => {
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
   const handleSignIn = async (values: SignInFormValidatorType) => {
@@ -30,14 +32,14 @@ const SignInForm = () => {
       redirect: false,
     });
     if (signInData?.error) {
-      console.log(signInData.error);
+      setError("Wrong username or password!");
     } else {
       router.push("/");
     }
   };
 
   return (
-    <FormWrapper title="Sign In">
+    <FormWrapper title="Sign In" error={error}>
       <Formik<SignInFormValidatorType>
         initialValues={initialValues}
         validationSchema={toFormikValidationSchema(SignInFormValidator)}

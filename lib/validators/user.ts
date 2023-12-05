@@ -33,9 +33,7 @@ export const SignInFormValidator = z.object({
     .max(30, {
       message: "Username must be be less than 30 characters long.",
     }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long." }),
+  password: z.string(),
 });
 
 export type UserValidatorType = z.infer<typeof UserValidator>;
