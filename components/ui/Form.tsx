@@ -4,14 +4,12 @@ import { Form } from "formik";
 
 export interface FormWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
-  error?: string;
 }
 
 const FormWrapper = ({
   title,
   className,
   children,
-  error,
   ...props
 }: FormWrapperProps) => {
   return (
@@ -25,7 +23,6 @@ const FormWrapper = ({
       {title && (
         <h1 className="text-head-3 sm:text-head-1 mb-6 sm:mb-10">{title}</h1>
       )}
-      {error && <p className="text-[#D73737] mb-4">{error}</p>}
       {children}
     </div>
   );
