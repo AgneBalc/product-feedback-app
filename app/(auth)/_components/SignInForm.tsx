@@ -13,39 +13,49 @@ import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const initialValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
 const SignInForm = () => {
   const router = useRouter();
 
+  const handleSignIn = async (values: SignInFormValidatorType) => {
+    const signInData = await signIn("credentials", {
+      username: values.username,
+      password: values.password,
+      redirect: false,
+    });
+    if (signInData?.error) {
+      console.log(signInData.error);
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <FormWrapper title="Sign In">
       <Formik<SignInFormValidatorType>
         initialValues={initialValues}
         validationSchema={toFormikValidationSchema(SignInFormValidator)}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => handleSignIn(values)}
       >
         <Form className="flex flex-col gap-6 w-full">
           <FormField>
-            <Label label="Email" />
-            <FormInput type="email" name="email" />
+            <Label label="Username" />
+            <FormInput type="text" name="username" />
             <ErrorMessage
-              name="email"
+              name="username"
               component="span"
               className="text-[#D73737]"
             />
           </FormField>
           <FormField>
             <Label label="Password" />
-            <FormInput
-              type="password"
-              name="password"
-              placeholder="at least 6 characters"
-            />
+            <FormInput type="password" name="password" />
             <ErrorMessage
               name="password"
               component="span"

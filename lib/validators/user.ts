@@ -26,7 +26,13 @@ export const UserValidator = z
   });
 
 export const SignInFormValidator = z.object({
-  email: z.string().trim().email({ message: "Invalid email address" }),
+  username: z
+    .string()
+    .trim()
+    .min(3, { message: "Username must be at least 3 characters long." })
+    .max(30, {
+      message: "Username must be be less than 30 characters long.",
+    }),
   password: z
     .string()
     .min(6, { message: "Password must be at least 6 characters long." }),
