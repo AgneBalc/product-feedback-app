@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import SortByButton from "./SortByButton";
 import Image from "next/image";
+import Link from "next/link";
 
 const ActionBar = () => {
   return (
@@ -20,7 +21,7 @@ const ActionBar = () => {
         size="md"
         className="sm:absolute sm:right-3 lg:right-4"
       >
-        + Add Feedback
+        <Link href="/create-feedback">+ Add Feedback</Link>
       </Button>
     </header>
   );
