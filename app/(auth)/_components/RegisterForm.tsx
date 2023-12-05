@@ -24,7 +24,6 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const handleRegister = async (values: UserValidatorType) => {
-    console.log("fetching");
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -43,7 +42,7 @@ const RegisterForm = () => {
     if (response.ok) {
       router.push("/");
     } else {
-      console.log("Registration failed.");
+      console.error("Registration failed");
     }
   };
 
@@ -121,7 +120,12 @@ const RegisterForm = () => {
             <Button variant="purple" size="md" type="submit">
               Create Account
             </Button>
-            <Button variant="cancel" size="md" type="button">
+            <Button
+              variant="cancel"
+              size="md"
+              type="button"
+              onClick={() => router.push("/")}
+            >
               Cancel
             </Button>
           </div>
@@ -131,7 +135,7 @@ const RegisterForm = () => {
         <p>
           Already have an account?{" "}
           <Link
-            href="sign-in"
+            href="/sign-in"
             className="text-blue text-body-3 underline hover:text-[#8397F8]"
           >
             Sign in
