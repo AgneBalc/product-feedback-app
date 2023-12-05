@@ -40,7 +40,7 @@ const RegisterForm = () => {
     });
 
     if (response.ok) {
-      router.push("/");
+      router.back();
     } else {
       console.error("Registration failed");
     }

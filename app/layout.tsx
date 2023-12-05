@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Provider from "@/components/Provider";
 
 const jost = Jost({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({
       className={cn("bg-grayLightest text-grayDark", jost.className)}
     >
       <body className="sm:py-14 lg:pt-24 lg:pb-32 sm:px-4 pb-14">
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
