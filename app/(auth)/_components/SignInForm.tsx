@@ -1,8 +1,6 @@
 "use client";
 
 import { UserSignInSchema, UserSignInSchemaType } from "@/lib/validators/user";
-import FormField from "@/components/ui/FormField";
-import Label from "@/components/ui/Label";
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
@@ -45,14 +43,18 @@ const SignInForm = () => {
       onSubmit={handleSubmit(handleSignIn)}
       className="flex flex-col gap-6 w-full"
     >
-      <FormField>
-        <Label label="Username" />
-        <FormInput type="text" {...register("username")} />
-      </FormField>
-      <FormField>
-        <Label label="Password" />
-        <FormInput type="password" {...register("password")} />
-      </FormField>
+      <FormInput
+        label="Username"
+        type="text"
+        {...register("username")}
+        error={errors.username}
+      />
+      <FormInput
+        label="Password"
+        type="password"
+        {...register("password")}
+        error={errors.password}
+      />
       {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
         <Button

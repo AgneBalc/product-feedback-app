@@ -24,7 +24,8 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) return null;
+        if (!credentials?.username || !credentials?.password)
+          throw new Error("Username and Password are required!");
 
         const existingUser = await db.user.findUnique({
           where: { username: credentials?.username },

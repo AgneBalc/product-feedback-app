@@ -1,15 +1,11 @@
-import React from "react";
-import { cn } from "@/lib/utils";
-
-export interface LabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {
+export interface LabelProps {
   label: string;
   description?: string;
 }
 
-const Label = ({ className, label, description, ...props }: LabelProps) => {
+const Label = ({ label, description }: LabelProps) => {
   return (
-    <label className={cn("", className)} {...props}>
+    <label>
       <h3 className="font-bold">{label}</h3>
       {description && <p className="text-gray">{description}</p>}
     </label>
