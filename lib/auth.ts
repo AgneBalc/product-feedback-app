@@ -25,25 +25,21 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null;
-        try {
-          const existingUser = await db.user.findUnique({
-            where: { username: credentials?.username },
-          });
 
-          if (!existingUser) throw new Error("Wrong username or password!");
+        const existingUser = await db.user.findUnique({
+          where: { username: credentials?.username },
+        });
 
-          const isPasswordCorrect = await compare(
-            credentials.password,
-            existingUser.password
-          );
+        if (!existingUser) throw new Error("Wrong username or password!");
 
-          if (!isPasswordCorrect)
-            throw new Error("Wrong username or password!");
+        const isPasswordCorrect = await compare(
+          credentials.password,
+          existingUser.password
+        );
 
-          return existingUser;
-        } catch (error) {
-          return null;
-        }
+        if (!isPasswordCorrect) throw new Error("Wrong username or password!");
+
+        return existingUser;
       },
     }),
   ],

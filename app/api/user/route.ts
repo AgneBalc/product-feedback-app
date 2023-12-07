@@ -1,20 +1,24 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hash } from "bcrypt";
-import { UserValidator } from "@/lib/validators/user";
+import { UserRegisterSchema } from "@/lib/validators/user";
 
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
     const { email, username, name, password, image } =
-      UserValidator.parse(body);
+      UserRegisterSchema.parse(body);
 
     const existingUserByEmail = await db.user.findUnique({
       where: { email },
     });
     if (existingUserByEmail) {
       return NextResponse.json(
-        { user: null, message: "User with this email already exists" },
+        {
+          user: null,
+          field: "email",
+          message: "User with this email already exists",
+        },
         { status: 409 }
       );
     }
@@ -24,7 +28,11 @@ export const POST = async (req: Request) => {
     });
     if (existingUserByUsername) {
       return NextResponse.json(
-        { user: null, message: "User with this username already exists" },
+        {
+          user: null,
+          field: "username",
+          message: "User with this username already exists",
+        },
         { status: 409 }
       );
     }

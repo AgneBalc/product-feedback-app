@@ -1,18 +1,14 @@
 import { z } from "zod";
 
-export const UserValidator = z
+export const UserRegisterSchema = z
   .object({
     username: z
       .string()
       .trim()
-      .min(3, { message: "Username must be at least 3 characters long." })
-      .max(30, {
-        message: "Username must be be less than 30 characters long.",
-      }),
+      .min(3, { message: "Username must be at least 3 characters long." }),
     name: z
       .string()
-      .min(3, { message: "Name must be at least 3 characters long." })
-      .max(100, { message: "Name must be be less than 100 characters long." }),
+      .min(3, { message: "Name must be at least 3 characters long." }),
     email: z.string().trim().email({ message: "Invalid email address" }),
     image: z.string().optional(),
     password: z
@@ -25,16 +21,10 @@ export const UserValidator = z
     message: "Passwords do not match",
   });
 
-export const SignInFormValidator = z.object({
-  username: z
-    .string()
-    .trim()
-    .min(3, { message: "Username must be at least 3 characters long." })
-    .max(30, {
-      message: "Username must be be less than 30 characters long.",
-    }),
+export const UserSignInSchema = z.object({
+  username: z.string(),
   password: z.string(),
 });
 
-export type UserValidatorType = z.infer<typeof UserValidator>;
-export type SignInFormValidatorType = z.infer<typeof SignInFormValidator>;
+export type UserRegisterSchemaType = z.infer<typeof UserRegisterSchema>;
+export type UserSignInSchemaType = z.infer<typeof UserSignInSchema>;
