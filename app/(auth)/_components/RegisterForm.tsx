@@ -71,7 +71,7 @@ const RegisterForm = () => {
         type="password"
         placeholder="at least 6 characters"
         {...register("password")}
-        error={errors.email}
+        error={errors.password}
       />
       <FormInput
         label="Re-enter password"

@@ -5,7 +5,7 @@ import Label from "./Label";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   description?: string;
   error?: FieldError;
 }

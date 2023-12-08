@@ -1,5 +1,5 @@
 export interface LabelProps {
-  label: string;
+  label?: string;
   description?: string;
 }
 
