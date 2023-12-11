@@ -18,7 +18,10 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            "bg-grayLightest border-none rounded-sm h-12 flex items-center px-6 w-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue",
+            "bg-grayLightest rounded-sm h-12 flex items-center px-6 w-full focus-visible:outline-none",
+            error
+              ? "border border-[#D73737]"
+              : "border-none focus-visible:ring-1 focus-visible:ring-blue",
             className
           )}
           ref={ref}

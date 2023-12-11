@@ -32,7 +32,7 @@ const CreateFeedbackForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6 w-full"
     >
       <FormInput
@@ -47,7 +47,8 @@ const CreateFeedbackForm = () => {
         label="Category"
         description="Choose a category for your feedback"
         error={errors.category}
-        {...register("category")}
+        setValue={setValue}
+        name={"category"}
       />
       <FormTextField
         label="Feedback Detail"
@@ -56,13 +57,19 @@ const CreateFeedbackForm = () => {
         {...register("description")}
       />
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
-        <Button variant="purple" size="md" type="submit">
+        <Button
+          variant="purple"
+          size="md"
+          type="submit"
+          disabled={isSubmitting}
+        >
           Add Feedback
         </Button>
         <Button
           variant="cancel"
           size="md"
           type="button"
+          disabled={isSubmitting}
           onClick={() => router.back()}
         >
           Cancel

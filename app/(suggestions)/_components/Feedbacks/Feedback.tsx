@@ -3,21 +3,28 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { useState } from "react";
+import { Comment, Post } from "@prisma/client";
 
-const Feedback = () => {
+interface FeedbackProps {
+  feedback: Post & {
+    comments: Comment[];
+  };
+}
+
+const Feedback = async ({ feedback }: FeedbackProps) => {
   const [isVoted, setIsVoted] = useState(false);
 
   return (
     <div className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0">
       <div className="flex flex-col gap-2 sm:gap-1 sm:pl-20 hover:text-blue">
         <h2 className="text-[13px] font-bold tracking-[-0.1181px] sm:text-head-3">
-          Add tags for solutions
+          {feedback.title}
         </h2>
         <p className="text-gray text-[13px] sm:text-base">
-          Easier to search for solutions based on a specific stack.
+          {feedback.description}
         </p>
         <Button size="sm" variant="light" className="self-start mt-2">
-          <span className="text-body-3">Enhancement</span>
+          <span className="text-body-3">{feedback.category}</span>
         </Button>
       </div>
       <Button
@@ -41,7 +48,7 @@ const Feedback = () => {
         <span
           className={`text-body-3 ${isVoted ? "text-white" : "text-grayDark"}`}
         >
-          112
+          {feedback.upvotes}
         </span>
       </Button>
       <div className="flex justify-end items-center">
@@ -52,7 +59,9 @@ const Feedback = () => {
             width={18}
             height={16}
           />
-          <span className="text-body-3 sm:text-base text-grayDark">2</span>
+          <span className="text-body-3 sm:text-base text-grayDark">
+            {feedback.comments.length}
+          </span>
         </Button>
       </div>
     </div>

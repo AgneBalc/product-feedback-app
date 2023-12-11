@@ -17,12 +17,18 @@ interface FormDropdownProps {
   label: string;
   description?: string;
   error?: FieldError;
+  name: string;
+  setValue: UseFormSetValue<any>;
 }
 
 const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
-  ({ itemsList, label, description, error }, ref) => {
+  ({ itemsList, label, description, error, setValue, name }, ref) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [checked, setChecked] = useState(itemsList[0]);
+
+    useEffect(() => {
+      setValue(name, checked);
+    }, [name, checked, setValue]);
 
     return (
       <div className="flex flex-col gap-4 w-full" ref={ref}>
@@ -30,7 +36,9 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
         <div className="relative h-full flex items-center">
           <div className="relative text-sm flex gap-2 items-center w-full">
             <Button
-              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              onClick={() => {
+                setIsDropdownOpen((prev) => !prev);
+              }}
               type="button"
               className="w-full"
             >

@@ -10,13 +10,13 @@ const GoBackButton = () => {
   return (
     <Button
       onClick={() => router.back()}
-      className="items-center gap-[15.666px] mb-10"
+      className="items-center gap-[15.666px]"
     >
       <Image
         src="/shared/icon-arrow-left.svg"
         alt="Arrow left icon"
-        width={8}
-        height={4}
+        width={7}
+        height={10}
       />
       <span className="text-sm font-bold text-gray hover:underline">
         Go Back

@@ -17,7 +17,10 @@ const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
         <Label label={label} description={description} />
         <textarea
           className={cn(
-            "bg-grayLightest border-none rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue resize-none",
+            "bg-grayLightest rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none resize-none",
+            error
+              ? "border border-[#D73737]"
+              : "border-none focus-visible:ring-1 focus-visible:ring-blue",
             className
           )}
           ref={ref}

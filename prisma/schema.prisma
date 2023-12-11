@@ -16,7 +16,7 @@ enum CATEGORY_TYPE {
   UX
   ENHANCEMENT
   BUG
-  FETURE
+  FEATURE
 }
 
 enum STATUS {
@@ -60,7 +60,7 @@ model Comment {
   content  String @db.VarChar(250)
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
-  post     Post   @relation(fields: [postId], references: [id])
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId   String
 
   replies   Comment[] @relation("reply_to")
