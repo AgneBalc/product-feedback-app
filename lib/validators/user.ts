@@ -26,5 +26,5 @@ export const UserSignInSchema = z.object({
   password: z.string(),
 });
 
-export type UserRegisterSchemaType = z.infer<typeof UserRegisterSchema>;
-export type UserSignInSchemaType = z.infer<typeof UserSignInSchema>;
+export type UserRegisterType = z.infer<typeof UserRegisterSchema>;
+export type UserSignInType = z.infer<typeof UserSignInSchema>;

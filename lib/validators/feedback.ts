@@ -6,4 +6,4 @@ export const createFeedbackSchema = z.object({
   description: z.string().min(1, "Can’t be empty"),
 });
 
-export type CreateFeedbackSchemaType = z.infer<typeof createFeedbackSchema>;
+export type CreateFeedbackType = z.infer<typeof createFeedbackSchema>;

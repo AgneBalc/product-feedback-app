@@ -1,6 +1,6 @@
 "use client";
 
-import { UserSignInSchema, UserSignInSchemaType } from "@/lib/validators/user";
+import { UserSignInSchema, UserSignInType } from "@/lib/validators/user";
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
@@ -16,12 +16,12 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-  } = useForm<UserSignInSchemaType>({
+  } = useForm<UserSignInType>({
     resolver: zodResolver(UserSignInSchema),
     mode: "onTouched",
   });
 
-  const handleSignIn = async (data: UserSignInSchemaType) => {
+  const handleSignIn = async (data: UserSignInType) => {
     await signIn("credentials", { ...data, redirect: false }).then(
       (callback) => {
         if (callback?.error) {

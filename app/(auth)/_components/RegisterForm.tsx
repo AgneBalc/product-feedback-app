@@ -4,10 +4,7 @@ import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import {
-  UserRegisterSchema,
-  UserRegisterSchemaType,
-} from "@/lib/validators/user";
+import { UserRegisterSchema, UserRegisterType } from "@/lib/validators/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterForm = () => {
@@ -18,12 +15,12 @@ const RegisterForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-  } = useForm<UserRegisterSchemaType>({
+  } = useForm<UserRegisterType>({
     resolver: zodResolver(UserRegisterSchema),
     mode: "onTouched",
   });
 
-  const handleRegister = async (data: UserRegisterSchemaType) => {
+  const handleRegister = async (data: UserRegisterType) => {
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {

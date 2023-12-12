@@ -10,8 +10,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createFeedbackSchema,
-  CreateFeedbackSchemaType,
+  CreateFeedbackType,
 } from "@/lib/validators/feedback";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const CreateFeedbackForm = () => {
   const {
@@ -19,15 +21,40 @@ const CreateFeedbackForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-  } = useForm<CreateFeedbackSchemaType>({
+  } = useForm<CreateFeedbackType>({
     resolver: zodResolver(createFeedbackSchema),
     mode: "onTouched",
   });
 
   const router = useRouter();
 
-  const onSubmit = (data: CreateFeedbackSchemaType) => {
-    console.log(data);
+  const { mutate: createFeedback } = useMutation({
+    mutationFn: async ({
+      title,
+      category,
+      description,
+    }: CreateFeedbackType) => {
+      // const payload: CreateFeedbackType = { title, category, description };
+      const { data } = await axios.post("/api/create", {
+        title,
+        category,
+        description,
+      });
+      return data;
+    },
+    onError: () => {
+      console.log(
+        "Something went wrong. Your feedback was not published. Please try again."
+      );
+    },
+  });
+
+  const onSubmit = (data: CreateFeedbackType) => {
+    createFeedback({
+      title: data.title,
+      category: data.category,
+      description: data.description,
+    });
   };
 
   return (

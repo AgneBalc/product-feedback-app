@@ -14,15 +14,15 @@ datasource db {
 enum CATEGORY_TYPE {
   UI
   UX
-  ENHANCEMENT
-  BUG
-  FEATURE
+  Enhancement
+  Bug
+  Feature
 }
 
 enum STATUS {
   SUGGESTIONS
   PLANNED
-  INPROGRESS
+  IN_PROGRESS
   LIVE
 }
 
@@ -30,7 +30,7 @@ model Post {
   id          String        @id @default(uuid())
   title       String
   category    CATEGORY_TYPE
-  status      STATUS
+  status      STATUS        @default(SUGGESTIONS)
   upvotes     Int           @default(0)
   description String
   author      User          @relation("created_posts", fields: [authorId], references: [id])
