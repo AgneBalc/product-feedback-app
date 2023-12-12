@@ -49,10 +49,9 @@ export const POST = async (req: Request) => {
           image,
       },
     });
-    const { password: newUserPassword, ...rest } = newUser;
 
     return NextResponse.json(
-      { user: rest, message: "User created successfully" },
+      { user: newUser, message: "User created successfully" },
       { status: 201 }
     );
   } catch (error) {

@@ -11,7 +11,7 @@ interface FeedbackProps {
   };
 }
 
-const Feedback = async ({ feedback }: FeedbackProps) => {
+const Feedback = ({ feedback }: FeedbackProps) => {
   const [isVoted, setIsVoted] = useState(false);
 
   return (
