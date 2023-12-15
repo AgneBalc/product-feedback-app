@@ -1,7 +1,6 @@
-import { Comment, Post, User } from "@prisma/client";
+import type { Feedback, User, UserUpvote } from "@prisma/client";
 
-export type ExtendedFeedback = {
-  feedback: Post & {
-    comments: Comment[];
-  };
+export type ExtendedFeedback = Feedback & {
+  upvotedBy: UserUpvote[];
+  comments: Comment[];
 };

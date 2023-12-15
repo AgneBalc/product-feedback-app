@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
-import Feedback from "@/components/Feedback";
+import FeedbackCard from "@/components/Feedback";
 
 interface FeedbackDetailPageProps {
   params: { id: string };
@@ -9,11 +9,11 @@ interface FeedbackDetailPageProps {
 const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
   const { id } = params;
 
-  const feedback = await db.post.findUnique({
+  const feedback = await db.feedback.findUnique({
     where: { id },
     include: {
       comments: true,
-      author: true,
+      upvotedBy: true,
     },
   });
 
@@ -21,7 +21,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
 
   return (
     <section className="my-6">
-      <Feedback feedback={feedback} />
+      <FeedbackCard feedback={feedback} />
     </section>
   );
 };

@@ -26,48 +26,57 @@ enum STATUS {
   LIVE
 }
 
-model Post {
+model User {
+  id               String       @id @default(uuid())
+  name             String
+  username         String       @unique
+  email            String       @unique
+  password         String
+  image            String?
+  createdFeedbacks Feedback[]
+  upvotedFeedbacks UserUpvote[]
+  comments         Comment[]
+}
+
+model Feedback {
   id          String        @id @default(uuid())
   title       String
   category    CATEGORY_TYPE
   status      STATUS        @default(SUGGESTIONS)
   upvotes     Int           @default(0)
   description String
-  author      User          @relation("created_posts", fields: [authorId], references: [id])
+  author      User          @relation(fields: [authorId], references: [id])
   authorId    String
-  upvotedBy   User?         @relation("upvoted_posts", fields: [upvotedById], references: [id])
-  upvotedById String?
+  upvotedBy   UserUpvote[]
   comments    Comment[]
 
   @@index([authorId])
-  @@index([upvotedById])
 }
 
-model User {
-  id           String    @id @default(uuid())
-  name         String
-  username     String    @unique
-  email        String    @unique
-  password     String
-  image        String?
-  createdPosts Post[]    @relation("created_posts")
-  upvotedPosts Post[]    @relation("upvoted_posts")
-  comments     Comment[]
+model UserUpvote {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  feedback   Feedback @relation(fields: [feedbackId], references: [id])
+  feedbackId String
+
+  @@unique([userId, feedbackId])
+  @@index([feedbackId])
 }
 
 model Comment {
-  id       String @id @default(uuid())
-  content  String @db.VarChar(250)
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
-  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId   String
+  id         String   @id @default(uuid())
+  content    String   @db.VarChar(250)
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String
+  feedback   Feedback @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
+  feedbackId String
 
   replies   Comment[] @relation("reply_to")
   replyTo   Comment?  @relation("reply_to", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replyToId String?
 
   @@index([authorId])
-  @@index([postId])
+  @@index([feedbackId])
   @@index([replyToId])
 }
