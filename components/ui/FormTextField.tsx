@@ -13,19 +13,21 @@ export interface TextFieldProps
 const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
   ({ className, label, description, error, ...props }, ref) => {
     return (
-      <div className="flex flex-col gap-4 w-full">
-        <Label label={label} description={description} />
-        <textarea
-          className={cn(
-            "bg-grayLightest rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none resize-none",
-            error
-              ? "border border-[#D73737]"
-              : "border-none focus-visible:ring-1 focus-visible:ring-blue",
-            className
-          )}
-          ref={ref}
-          {...props}
-        />
+      <div>
+        <div className="flex flex-col gap-4 w-full">
+          <Label label={label} description={description} />
+          <textarea
+            className={cn(
+              "bg-grayLightest rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none resize-none",
+              error
+                ? "border border-[#D73737]"
+                : "border-none focus-visible:ring-1 focus-visible:ring-blue",
+              className
+            )}
+            ref={ref}
+            {...props}
+          />
+        </div>
         {error && <p className="text-[#D73737]">{error.message}</p>}
       </div>
     );

@@ -39,7 +39,7 @@ module.exports = {
           "13px",
           {
             lineHeight: "19px",
-            fontWeight: 700,
+            fontWeight: 600,
           },
         ],
       },

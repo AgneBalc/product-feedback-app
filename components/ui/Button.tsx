@@ -3,21 +3,18 @@ import { ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "border-none inline-flex items-center justify-center transition ease-in-out duration-300 focus:outline-none rounded-md",
+  "border-none inline-flex items-center justify-center transition ease-in-out duration-300 focus:outline-none rounded-md text-[13px] font-medium sm:text-head-4 tracking-[0.25px]",
   {
     variants: {
       variant: {
-        ghost: "bg-transparent",
         light: "bg-grayLight text-blue hover:bg-[#CFD7FF] hover:text-blue",
-        purple:
-          "bg-purple text-white hover:bg-[#C75AF6] text-[13px] font-semibold sm:text-head-4",
-        blue: "bg-blue text-white hover:bg-[#7C91F9] text-[13px] font-semibold sm:text-head-4",
-        cancel:
-          "bg-grayDark text-white hover:bg-[#656EA3] text-[13px] font-semibold sm:text-head-4",
+        purple: "bg-purple text-white hover:bg-[#C75AF6]",
+        blue: "bg-blue text-white hover:bg-[#7C91F9]",
+        cancel: "bg-grayDark text-white hover:bg-[#656EA3]",
       },
       size: {
         sm: "h-[30px] px-4",
-        md: "rounded-md h-10 px-4 sm:h-11 sm:px-6",
+        md: "h-10 px-4 sm:h-11 sm:px-6",
         fixed: "w-[69px] h-8 pl-4 sm:pl-0 sm:h-[53px] sm:w-10 sm:pb-2",
       },
     },

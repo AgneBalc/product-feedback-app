@@ -96,6 +96,7 @@ const CreateFeedbackForm = () => {
           size="md"
           type="submit"
           disabled={isSubmitting}
+          className="sm:order-last"
         >
           Add Feedback
         </Button>

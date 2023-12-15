@@ -12,7 +12,7 @@ const SortByButton = () => {
 
   return (
     <div className="relative h-full flex items-center">
-      <div className="text-sm flex gap-2 items-center">
+      <div className="flex gap-2 items-center">
         <Button
           onClick={() => setIsSortOpen((prev) => !prev)}
           className="hover:opacity-75"

@@ -5,12 +5,7 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Dropdown from "@/components/ui/Dropdown";
 import Label from "./Label";
-import {
-  FieldError,
-  FieldValue,
-  FieldValues,
-  UseFormSetValue,
-} from "react-hook-form";
+import { FieldError, UseFormSetValue } from "react-hook-form";
 
 interface FormDropdownProps {
   itemsList: string[];
@@ -34,13 +29,13 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
       <div className="flex flex-col gap-4 w-full" ref={ref}>
         <Label label={label} description={description} />
         <div className="relative h-full flex items-center">
-          <div className="relative text-sm flex gap-2 items-center w-full">
+          <div className="relative flex gap-2 items-center w-full">
             <Button
               onClick={() => {
                 setIsDropdownOpen((prev) => !prev);
               }}
               type="button"
-              className="w-full"
+              className="w-full font-normal sm:font-normal sm:sm:text-body-2"
             >
               <input
                 type="text"
@@ -71,7 +66,7 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
                       setChecked(item);
                       setIsDropdownOpen(false);
                     }}
-                    className="text-gray text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
+                    className="text-gray sm:text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
                   >
                     <span>{item}</span>
                     {checked === item && (

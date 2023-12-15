@@ -21,7 +21,6 @@ const MobileSidebar = () => {
   return (
     <>
       <Button
-        variant="ghost"
         className="block sm:hidden absolute right-6 top-7 hover:opacity-75"
         onClick={toggleModal}
       >

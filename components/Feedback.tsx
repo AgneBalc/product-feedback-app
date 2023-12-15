@@ -64,7 +64,7 @@ const Feedback = ({ feedback }: FeedbackProps) => {
             width={18}
             height={16}
           />
-          <span className="text-body-3 sm:text-base text-grayDark">
+          <span className="sm:text-base font-bold text-grayDark">
             {feedback.comments.length}
           </span>
         </Button>
