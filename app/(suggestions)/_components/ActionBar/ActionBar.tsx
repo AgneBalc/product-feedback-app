@@ -21,7 +21,7 @@ const ActionBar = () => {
         size="md"
         className="sm:absolute sm:right-3 lg:right-4"
       >
-        <Link href="/create-feedback">+ Add Feedback</Link>
+        <Link href="/feedback/create">+ Add Feedback</Link>
       </Button>
     </header>
   );

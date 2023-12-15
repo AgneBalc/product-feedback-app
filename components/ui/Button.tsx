@@ -10,9 +10,10 @@ const buttonVariants = cva(
         ghost: "bg-transparent",
         light: "bg-grayLight text-blue hover:bg-[#CFD7FF] hover:text-blue",
         purple:
-          "bg-purple text-white hover:bg-[#C75AF6] text-[13px] font-medium sm:text-head-4",
+          "bg-purple text-white hover:bg-[#C75AF6] text-[13px] font-semibold sm:text-head-4",
+        blue: "bg-blue text-white hover:bg-[#7C91F9] text-[13px] font-semibold sm:text-head-4",
         cancel:
-          "bg-grayDark text-white hover:bg-[#656EA3] text-[13px] font-medium sm:text-head-4",
+          "bg-grayDark text-white hover:bg-[#656EA3] text-[13px] font-semibold sm:text-head-4",
       },
       size: {
         sm: "h-[30px] px-4",

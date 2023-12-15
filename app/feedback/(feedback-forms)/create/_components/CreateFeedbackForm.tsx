@@ -21,6 +21,7 @@ const CreateFeedbackForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    setError,
   } = useForm<CreateFeedbackType>({
     resolver: zodResolver(createFeedbackSchema),
     mode: "onTouched",
@@ -34,7 +35,6 @@ const CreateFeedbackForm = () => {
       category,
       description,
     }: CreateFeedbackType) => {
-      // const payload: CreateFeedbackType = { title, category, description };
       const { data } = await axios.post("/api/create", {
         title,
         category,
@@ -43,9 +43,15 @@ const CreateFeedbackForm = () => {
       return data;
     },
     onError: () => {
-      console.log(
-        "Something went wrong. Your feedback was not published. Please try again."
-      );
+      setError("root", {
+        type: "server",
+        message:
+          "Something went wrong! Your feedback was not published. Please try again.",
+      });
+    },
+    onSuccess: () => {
+      router.push("/");
+      router.refresh();
     },
   });
 
@@ -83,6 +89,7 @@ const CreateFeedbackForm = () => {
         error={errors.description}
         {...register("description")}
       />
+      {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
         <Button
           variant="purple"

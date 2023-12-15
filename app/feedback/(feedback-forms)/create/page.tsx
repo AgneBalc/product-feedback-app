@@ -2,7 +2,7 @@ import FormWrapper from "@/components/ui/Form";
 import Link from "next/link";
 import CreateFeedbackForm from "./_components/CreateFeedbackForm";
 import Image from "next/image";
-import { db } from "../../lib/db";
+import { db } from "../../../../lib/db";
 
 const CreateFeedbackPage = async () => {
   return (

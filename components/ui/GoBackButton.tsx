@@ -18,7 +18,7 @@ const GoBackButton = () => {
         width={7}
         height={10}
       />
-      <span className="text-sm font-bold text-gray hover:underline">
+      <span className="text-sm font-semibold text-gray hover:underline">
         Go Back
       </span>
     </Button>
