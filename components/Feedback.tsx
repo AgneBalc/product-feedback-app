@@ -1,10 +1,8 @@
-"use client";
-
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Comment, Feedback, UserUpvote } from "@prisma/client";
+import UserUpvotes from "./UserUpvotes";
 
 interface FeedbackProps {
   feedback: Feedback & {
@@ -13,9 +11,7 @@ interface FeedbackProps {
   };
 }
 
-const FeedbackCard = ({ feedback }: FeedbackProps) => {
-  const [isVoted, setIsVoted] = useState(false);
-
+const FeedbackCard = async ({ feedback }: FeedbackProps) => {
   return (
     <div className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0 hover:text-blue">
       <Link href={`/feedback/${feedback.id}`}>
@@ -36,30 +32,10 @@ const FeedbackCard = ({ feedback }: FeedbackProps) => {
           </Button>
         </div>
       </Link>
-      <Button
-        onClick={() => setIsVoted((prev) => !prev)}
-        size="fixed"
-        variant="light"
-        className={`flex sm:flex-col items-center gap-[10px] justify-start sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 ${
-          isVoted && "bg-blue"
-        }`}
-      >
-        <Image
-          src={
-            isVoted
-              ? "/shared/icon-arrow-up-white.svg"
-              : "/shared/icon-arrow-up-blue.svg"
-          }
-          alt="Arrow up icon"
-          width={10}
-          height={7}
-        />
-        <span
-          className={`text-body-3 ${isVoted ? "text-white" : "text-grayDark"}`}
-        >
-          {feedback.upvotes}
-        </span>
-      </Button>
+      <UserUpvotes
+        initialVotesAmount={feedback.upvotes}
+        feedbackId={feedback.id}
+      />
       <div className="flex justify-end items-center">
         <Button className="flex gap-1 h-8 sm:gap-2">
           <Image

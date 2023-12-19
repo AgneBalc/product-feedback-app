@@ -15,7 +15,7 @@ export const POST = async (request: Request) => {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const newFeedback = await db.post.create({
+    const newFeedback = await db.feedback.create({
       data: {
         title,
         category,
