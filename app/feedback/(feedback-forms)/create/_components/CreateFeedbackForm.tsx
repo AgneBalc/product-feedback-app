@@ -35,7 +35,7 @@ const CreateFeedbackForm = () => {
       category,
       description,
     }: CreateFeedbackType) => {
-      const { data } = await axios.post("/api/create", {
+      const { data } = await axios.post("/api/feedback/create", {
         title,
         category,
         description,

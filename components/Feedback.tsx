@@ -35,6 +35,7 @@ const FeedbackCard = async ({ feedback }: FeedbackProps) => {
       <UserUpvotes
         initialVotesAmount={feedback.upvotes}
         feedbackId={feedback.id}
+        isUserUpvoted={feedback.upvotedBy[0]?.userId}
       />
       <div className="flex justify-end items-center">
         <Button className="flex gap-1 h-8 sm:gap-2">
