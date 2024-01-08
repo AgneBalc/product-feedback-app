@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Comment, Feedback, UserUpvote } from "@prisma/client";
 import UserUpvotes from "./UserUpvotes";
+import { Suspense } from "react";
+import { auth } from "../lib/auth";
 
 interface FeedbackProps {
   feedback: Feedback & {
@@ -12,6 +14,11 @@ interface FeedbackProps {
 }
 
 const FeedbackCard = async ({ feedback }: FeedbackProps) => {
+  const session = await auth();
+
+  const hasUserVoted = feedback.upvotedBy.find(
+    (vote) => vote.userId === session?.user.id
+  );
   return (
     <div className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0 hover:text-blue">
       <Link href={`/feedback/${feedback.id}`}>
@@ -32,11 +39,13 @@ const FeedbackCard = async ({ feedback }: FeedbackProps) => {
           </Button>
         </div>
       </Link>
+      {/* <Suspense fallback={<div>...</div>}> */}
       <UserUpvotes
         initialVotesAmount={feedback.upvotes}
         feedbackId={feedback.id}
-        isUserUpvoted={feedback.upvotedBy[0]?.userId}
+        isUserUpvoted={hasUserVoted}
       />
+      {/* </Suspense> */}
       <div className="flex justify-end items-center">
         <Button className="flex gap-1 h-8 sm:gap-2">
           <Image

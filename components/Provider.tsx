@@ -1,21 +1,14 @@
-"use client";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
+import { auth } from "../lib/auth";
 
 interface ProviderProps {
   children: React.ReactNode;
 }
 
-const queryClient = new QueryClient();
-
-const Provider = ({ children }: ProviderProps) => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <SessionProvider>{children}</SessionProvider>
-    </QueryClientProvider>
-  );
+const Provider = async ({ children }: ProviderProps) => {
+  const session = await auth();
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
 export default Provider;

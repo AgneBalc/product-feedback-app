@@ -1,68 +1,33 @@
 "use client";
 
-import { UserSignInSchema, UserSignInType } from "@/lib/validators/user";
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormState } from "react-dom";
+import { login } from "@/lib/actions/login";
 
 const SignInForm = () => {
+  const [state, formAction] = useFormState(login, undefined);
+
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<UserSignInType>({
-    resolver: zodResolver(UserSignInSchema),
-    mode: "onTouched",
-  });
-
-  const handleSignIn = async (data: UserSignInType) => {
-    await signIn("credentials", { ...data, redirect: false }).then(
-      (callback) => {
-        if (callback?.error) {
-          setError("root", {
-            type: "server",
-            message: callback.error,
-          });
-        }
-
-        if (callback?.ok) {
-          router.push("/");
-        }
-      }
-    );
-  };
-
   return (
-    <form
-      onSubmit={handleSubmit(handleSignIn)}
-      className="flex flex-col gap-6 w-full"
-    >
+    <form action={formAction} className="flex flex-col gap-6 w-full">
       <FormInput
         label="Username"
         type="text"
-        {...register("username")}
-        error={errors.username}
+        name="username"
+        error={state?.fieldErrors?.username}
       />
       <FormInput
         label="Password"
         type="password"
-        {...register("password")}
-        error={errors.password}
+        name="password"
+        error={state?.fieldErrors?.password}
       />
-      {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
+      {state?.error && <p className="text-[#D73737]">{state.error}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
-        <Button
-          variant="purple"
-          size="md"
-          type="submit"
-          disabled={isSubmitting}
-        >
+        <Button variant="purple" size="md" type="submit">
           Sign in
         </Button>
         <Button

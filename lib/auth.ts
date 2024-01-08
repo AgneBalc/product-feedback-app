@@ -1,66 +1,42 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { NextAuthOptions, getServerSession } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "./db";
-import { compare } from "bcrypt";
+import authConfig from "./auth.config";
+import { getUserById } from "../data/user";
 
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-  },
+export const {
+  handlers: { GET, POST },
+  signIn,
+  auth,
+} = NextAuth({
   pages: {
     signIn: "/sign-in",
   },
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: {
-          label: "Username",
-          type: "text",
-        },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password)
-          throw new Error("Username and Password are required!");
-
-        const existingUser = await db.user.findUnique({
-          where: { username: credentials?.username },
-        });
-
-        if (!existingUser) throw new Error("Wrong username or password!");
-
-        const isPasswordCorrect = await compare(
-          credentials.password,
-          existingUser.password
-        );
-
-        if (!isPasswordCorrect) throw new Error("Wrong username or password!");
-
-        return existingUser;
-      },
-    }),
-  ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
+    async jwt({ token }) {
+      if (!token.sub) return token;
+
+      const existingUser = await getUserById(token.sub);
+
+      if (!existingUser) return token;
+
+      token.username = existingUser.username;
 
       return token;
     },
-    async session({ session, token }) {
-      if (session?.user) {
-        session.user.id = token.id as string;
+    async session({ token, session }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
+      }
+
+      if (token.username && session.user) {
         session.user.username = token.username as string;
       }
 
       return session;
     },
   },
-};
-
-export const getAuthSession = () => getServerSession(authOptions);
+  adapter: PrismaAdapter(db),
+  session: { strategy: "jwt" },
+  ...authConfig,
+});

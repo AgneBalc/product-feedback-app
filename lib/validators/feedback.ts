@@ -10,7 +10,6 @@ export type CreateFeedbackType = z.infer<typeof createFeedbackSchema>;
 
 export const upvotedBySchema = z.object({
   feedbackId: z.string(),
-  voteValue: z.number(),
 });
 
 export type UpvotedByType = z.infer<typeof upvotedBySchema>;

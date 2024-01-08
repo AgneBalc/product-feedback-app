@@ -1,22 +1,23 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Label from "./Label";
-import { FieldError } from "react-hook-form";
 
 export interface TextFieldProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   description?: string;
-  error?: FieldError;
+  error: string[] | undefined;
+  name: string;
 }
 
 const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
-  ({ className, label, description, error, ...props }, ref) => {
+  ({ className, label, name, description, error, ...props }, ref) => {
     return (
       <div>
         <div className="flex flex-col gap-4 w-full">
           <Label label={label} description={description} />
           <textarea
+            name={name}
             className={cn(
               "bg-grayLightest rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none resize-none",
               error
@@ -28,7 +29,7 @@ const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
             {...props}
           />
         </div>
-        {error && <p className="text-[#D73737]">{error.message}</p>}
+        {error && <p className="text-[#D73737]">{error}</p>}
       </div>
     );
   }

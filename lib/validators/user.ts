@@ -22,8 +22,8 @@ export const UserRegisterSchema = z
   });
 
 export const UserSignInSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().min(1, "Can’t be empty"),
+  password: z.string().min(1, "Can’t be empty"),
 });
 
 export type UserRegisterType = z.infer<typeof UserRegisterSchema>;

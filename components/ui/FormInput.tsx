@@ -1,23 +1,23 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { FieldError } from "react-hook-form";
 import Label from "./Label";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   description?: string;
-  error?: FieldError;
+  error: string[] | undefined;
+  name: string;
 }
 
 const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, description, error, ...props }, ref) => {
+  ({ className, label, description, error, name, ...props }, ref) => {
     return (
       <div>
         <div className="flex flex-col gap-4 w-full">
           <Label label={label} description={description} />
           <input
-            type={type}
+            name={name}
             className={cn(
               "bg-grayLightest rounded-sm h-12 flex items-center px-6 w-full focus-visible:outline-none",
               error
@@ -29,7 +29,7 @@ const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        {error && <p className="text-[#D73737]">{error.message}</p>}
+        {error && <p className="text-[#D73737]">{error}</p>}
       </div>
     );
   }

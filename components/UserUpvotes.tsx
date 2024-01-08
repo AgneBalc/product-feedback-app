@@ -3,15 +3,13 @@
 import { useState } from "react";
 import Button from "./ui/Button";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
-import { UpvotedByType } from "@/lib/validators/feedback";
-import axios, { AxiosError } from "axios";
-import { redirect } from "next/navigation";
+import { upvote } from "../lib/actions/upvote";
+import { UserUpvote } from "@prisma/client";
 
 interface UserUpvotesProps {
   initialVotesAmount: number;
   feedbackId: string;
-  isUserUpvoted: string;
+  isUserUpvoted: UserUpvote | undefined;
 }
 
 const UserUpvotes = ({
@@ -22,34 +20,10 @@ const UserUpvotes = ({
   const [votesAmount, setVotesAmount] = useState<number>(initialVotesAmount);
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
 
-  const { mutate: vote } = useMutation({
-    mutationFn: async (value: number) => {
-      const payload: UpvotedByType = {
-        feedbackId,
-        voteValue: value,
-      };
-      await axios.patch("/api/feedback/vote", payload);
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 401) {
-          redirect("/sign-in");
-        }
-      }
-
-      // sutvarkyti serverio klaidu atvaizdavima
-      throw new Error(
-        "Something went wrong. Your vote was not registered. Please try again."
-      );
-    },
-    onMutate: (value: number) => {
-      setVotesAmount((prev) => prev + value);
-    },
-  });
-
-  const handleVote = () => {
+  const handleVote = async () => {
     setUpvoted((prev) => !prev);
-    vote(upvoted ? -1 : 1);
+    const updatedVotes = await upvote({ feedbackId });
+    updatedVotes?.data && setVotesAmount(updatedVotes?.data?.upvotes);
   };
 
   return (

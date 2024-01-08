@@ -3,90 +3,60 @@
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { UserRegisterSchema, UserRegisterType } from "@/lib/validators/user";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormState } from "react-dom";
+import { register } from "@/lib/actions/register";
 
 const RegisterForm = () => {
+  const [state, formAction] = useFormState(register, undefined);
+
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<UserRegisterType>({
-    resolver: zodResolver(UserRegisterSchema),
-    mode: "onTouched",
-  });
-
-  const handleRegister = async (data: UserRegisterType) => {
-    const response = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const responseData = await response.json();
-      setError(responseData.field, {
-        type: "server",
-        message: responseData.message,
-      });
-    } else {
-      router.push("/sign-in");
-    }
-  };
-
   return (
-    <form
-      onSubmit={handleSubmit(handleRegister)}
-      className="flex flex-col gap-6 w-full"
-    >
+    <form action={formAction} className="flex flex-col gap-6 w-full">
       <FormInput
         label="Your full name"
         type="text"
-        {...register("name")}
-        error={errors.name}
+        name="name"
+        error={state?.fieldErrors?.name}
       />
       <FormInput
         label="Username"
         type="text"
-        {...register("username")}
-        error={errors.username}
+        name="username"
+        error={state?.fieldErrors?.username}
       />
       <FormInput
         label="Email"
         type="email"
-        {...register("email")}
-        error={errors.email}
+        name="email"
+        error={state?.fieldErrors?.email}
       />
       <FormInput
         label="Password"
         type="password"
         placeholder="at least 6 characters"
-        {...register("password")}
-        error={errors.password}
+        name="password"
+        error={state?.fieldErrors?.password}
       />
       <FormInput
         label="Re-enter password"
         type="password"
-        {...register("confirmPassword")}
-        error={errors.confirmPassword}
+        name="confirmPassword"
+        error={state?.fieldErrors?.confirmPassword}
       />
       <FormInput
         label="Image (URL link)"
         type="url"
-        {...register("image")}
-        error={errors.image}
+        name="image"
+        error={state?.fieldErrors?.image}
       />
+      {state?.error && <p className="text-[#D73737]">{state.error}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
         <Button
           variant="purple"
           size="md"
           type="submit"
-          disabled={isSubmitting}
+          // disabled={isSubmitting}
         >
           Create Account
         </Button>
