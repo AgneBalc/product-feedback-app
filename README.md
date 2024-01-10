@@ -29,7 +29,7 @@ Users should be able to:
 - Upvote product feedback requests
 - **Bonus**: Keep track of any changes, even after refreshing the browser
 
-### Screenshot
+### Screenshots
 
 <div align="center">
   <img src="/public/screenshots/localhost_3000_ (7).png" alt="Screenshot 3" width="200"/>

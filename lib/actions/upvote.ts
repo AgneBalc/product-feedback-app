@@ -4,12 +4,13 @@ import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
 import { db } from "../db";
 import { UpvotedByType } from "../validators/feedback";
+import { redirect } from "next/navigation";
 
 export const upvote = async ({ feedbackId }: UpvotedByType) => {
   const session = await auth();
 
   if (!session?.user) {
-    return { error: "Unauthorized" };
+    redirect("/sign-in");
   }
 
   try {

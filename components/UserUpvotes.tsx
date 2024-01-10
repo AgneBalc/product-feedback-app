@@ -21,9 +21,10 @@ const UserUpvotes = ({
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
 
   const handleVote = async () => {
-    setUpvoted((prev) => !prev);
     const updatedVotes = await upvote({ feedbackId });
+
     updatedVotes?.data && setVotesAmount(updatedVotes?.data?.upvotes);
+    setUpvoted((prev) => !prev);
   };
 
   return (
