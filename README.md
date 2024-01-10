@@ -32,9 +32,9 @@ Users should be able to:
 ### Screenshot
 
 <div align="center">
-  <img src="/screenshots/localhost_3000_ (2).png" alt="Screenshot 1" width="250"/>
-  <img src="/screenshots/localhost_3000_ (6).png" alt="Screenshot 2" width="250"/>
-  <img src="/screenshots/localhost_3000_ (7).png" alt="Screenshot 3" width="250"/>
+  <img src="/public/screenshots/localhost_3000_ (7).png" alt="Screenshot 3" width="200"/>
+  <img src="/public/screenshots/localhost_3000_ (2).png" alt="Screenshot 1" width="300"/>
+  <img src="/public/screenshots/localhost_3000_ (6).png" alt="Screenshot 2" width="450"/>
 </div>
 
 ### Links
