@@ -3,10 +3,10 @@ import Header from "./_components/Header";
 
 const DetailsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <main className="max-w-[375px] p-6 mx-auto flex flex-col gap-6">
       <Header />
       {children}
-    </div>
+    </main>
   );
 };
 

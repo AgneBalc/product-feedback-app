@@ -46,7 +46,9 @@ const UserUpvotes = ({
         height={7}
       />
       <span
-        className={`text-body-3 ${upvoted ? "text-white" : "text-grayDark"}`}
+        className={`text-body-3 font-bold ${
+          upvoted ? "text-white" : "text-grayDark"
+        }`}
       >
         {votesAmount}
       </span>
