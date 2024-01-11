@@ -40,6 +40,8 @@ model User {
 
 model Feedback {
   id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   title       String
   category    CATEGORY_TYPE
   status      STATUS        @default(SUGGESTIONS)
@@ -57,7 +59,7 @@ model UserUpvote {
   id         String   @id @default(uuid())
   user       User     @relation(fields: [userId], references: [id])
   userId     String
-  feedback   Feedback @relation(fields: [feedbackId], references: [id])
+  feedback   Feedback @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
   feedbackId String
 
   @@unique([userId, feedbackId])
@@ -66,6 +68,7 @@ model UserUpvote {
 
 model Comment {
   id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
   content    String   @db.VarChar(250)
   author     User     @relation(fields: [authorId], references: [id])
   authorId   String

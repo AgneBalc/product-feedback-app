@@ -9,6 +9,9 @@ const SuggestionsPage = async () => {
       comments: true,
       upvotedBy: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   if (!feedbacks) return notFound();

@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import FeedbackCard from "@/components/Feedback";
-import Comments from "./_components/Comments";
+import CommentsSection from "./_components/CommentsSection";
 
 interface FeedbackDetailPageProps {
   params: { id: string };
@@ -23,7 +23,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
   return (
     <section className="flex flex-col gap-6">
       <FeedbackCard feedback={feedback} />
-      <Comments />
+      <CommentsSection feedbackId={feedback.id} />
     </section>
   );
 };
