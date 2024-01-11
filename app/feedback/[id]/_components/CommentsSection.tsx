@@ -1,12 +1,12 @@
 import { db } from "@/lib/db";
-import Comment from "./Comment";
+import FeedbackComment from "./FeedbackComment";
 
 interface CommentsSectionProps {
   feedbackId: string;
 }
 
 const CommentsSection = async ({ feedbackId }: CommentsSectionProps) => {
-  const comments = await db.comment.findMany({
+  const topLevelComments = await db.comment.findMany({
     where: {
       feedbackId,
       replyToId: null,
@@ -24,15 +24,19 @@ const CommentsSection = async ({ feedbackId }: CommentsSectionProps) => {
     },
   });
 
-  const topLevelComments = comments.filter((comment) => !comment.replyToId);
-  console.log(comments);
+  if (!topLevelComments) return null;
 
   return (
     <div className="w-full rounded-md bg-white p-6">
       <h1 className="text-head-3">4 Comments</h1>
       <div className="divide-y divide-[#8C92B3] divide-opacity-25">
-        <Comment />
-        <Comment />
+        {topLevelComments.map((comment) => (
+          <FeedbackComment
+            key={comment.id}
+            comment={comment}
+            feedbackId={feedbackId}
+          />
+        ))}
       </div>
     </div>
   );

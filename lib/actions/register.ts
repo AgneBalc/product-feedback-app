@@ -41,9 +41,7 @@ export const register = async (prevState: any, formData: FormData) => {
         email,
         password: hashedPassword,
         name,
-        image:
-          "https://cdn.imgbin.com/3/5/9/imgbin-computer-icons-user-profile-user-account-avatar-TfT3FkAEbgD76My1GynmW5KzT.jpg" ||
-          image,
+        image,
       },
     });
   } catch (error) {
