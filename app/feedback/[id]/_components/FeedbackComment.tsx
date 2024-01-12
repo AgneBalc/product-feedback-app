@@ -3,11 +3,13 @@ import Button from "@/components/ui/Button";
 import { Comment, User } from "@prisma/client";
 import { db } from "@/lib/db";
 import CommentsSection from "./CommentsSection";
+import { cn } from "@/lib/utils";
+import { getUserById } from "../../../../data/user";
 
 // TODO:
-//       - styling sutvarkyti!!!!
 //       - @ prideti reply'iams
 //       - perziureti HTML struktura
+//       - get comments, replies funkcijas iskelti kitur?
 
 type ExtendedComment = Comment & {
   author: User;
@@ -16,9 +18,15 @@ type ExtendedComment = Comment & {
 
 interface CommentProps {
   comment: ExtendedComment;
+  isReply: boolean;
+  replyToUsername?: string;
 }
 
-const FeedbackComment = async ({ comment }: CommentProps) => {
+const FeedbackComment = async ({
+  comment,
+  isReply,
+  replyToUsername,
+}: CommentProps) => {
   const replies = await db.comment.findMany({
     where: {
       replyToId: comment.id,
@@ -27,11 +35,14 @@ const FeedbackComment = async ({ comment }: CommentProps) => {
       author: true,
       replies: true,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
 
   return (
-    <div>
-      <div className="flex flex-col gap-4 py-6">
+    <>
+      <article className={cn("flex flex-col gap-4", isReply && "pl-6")}>
         <div className="flex items-center justify-between">
           <div className="flex gap-4 items-center">
             <Image
@@ -51,15 +62,23 @@ const FeedbackComment = async ({ comment }: CommentProps) => {
           </div>
           <Button className="text-blue hover:underline">Reply</Button>
         </div>
-        <p className="text-gray text-[13px]">{comment.content}</p>
-      </div>
+        <p className="text-gray text-[13px]">
+          <span
+            className={!isReply ? "hidden" : "text-purple font-bold"}
+          >{`@${replyToUsername}`}</span>{" "}
+          {comment.content}
+        </p>
+      </article>
 
       {replies.length > 0 && (
-        <div className="flex flex-col gap-4 border-l border-gray border-opacity-10 pl-6 pb-6">
-          <CommentsSection comments={replies} />
-        </div>
+        <CommentsSection
+          comments={replies}
+          isReply={true}
+          className={!isReply ? "border-l border-gray border-opacity-10" : ""}
+          replyToUsername={comment.author.username}
+        />
       )}
-    </div>
+    </>
   );
 };
 

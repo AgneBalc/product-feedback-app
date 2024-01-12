@@ -4,6 +4,10 @@ export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({ where: { id } });
 
+    // if (!user) {
+    //   return { error: "User not found" };
+    // }
+
     return user;
   } catch (error) {
     return null;

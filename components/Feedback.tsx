@@ -20,7 +20,7 @@ const FeedbackCard = async ({ feedback }: FeedbackProps) => {
     (vote) => vote.userId === session?.user.id
   );
   return (
-    <div className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0 hover:text-blue">
+    <article className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0 hover:text-blue">
       <Link href={`/feedback/${feedback.id}`}>
         <div className="flex flex-col gap-2 sm:gap-1 sm:pl-20">
           <h2 className="text-[13px] font-bold tracking-[-0.1181px] sm:text-head-3">
@@ -59,7 +59,7 @@ const FeedbackCard = async ({ feedback }: FeedbackProps) => {
           </span>
         </Button>
       </div>
-    </div>
+    </article>
   );
 };
 
