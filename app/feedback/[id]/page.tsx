@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import FeedbackCard from "@/components/Feedback";
 import CommentsSection from "./_components/CommentsSection";
+import AddCommentForm from "./_components/AddCommentForm";
 
 interface FeedbackDetailPageProps {
   params: { id: string };
@@ -45,6 +46,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
           )}
         </div>
       </section>
+      <AddCommentForm />
     </section>
   );
 };

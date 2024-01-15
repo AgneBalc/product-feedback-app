@@ -21,16 +21,11 @@ const CommentsSection = async ({
   replyToUsername,
 }: CommentsSectionProps) => {
   return comments.map((comment) => (
-    <div
-      key={comment.id}
-      className={cn("flex flex-col gap-6", isReply ? "" : "py-6", className)}
-    >
-      <FeedbackComment
-        comment={comment}
-        isReply={isReply}
-        replyToUsername={replyToUsername}
-      />
-    </div>
+    <FeedbackComment
+      comment={comment}
+      isReply={isReply}
+      replyToUsername={replyToUsername}
+    />
   ));
 };
 

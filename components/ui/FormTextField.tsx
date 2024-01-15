@@ -4,7 +4,7 @@ import Label from "./Label";
 
 export interface TextFieldProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: string;
+  label?: string;
   description?: string;
   error: string[] | undefined;
   name: string;
@@ -15,11 +15,11 @@ const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
     return (
       <div>
         <div className="flex flex-col gap-4 w-full">
-          <Label label={label} description={description} />
+          {label && <Label label={label} description={description} />}
           <textarea
             name={name}
             className={cn(
-              "bg-grayLightest rounded-sm h-[120px] flex items-center p-4 w-full focus-visible:outline-none resize-none",
+              "bg-grayLightest rounded-sm flex items-center p-4 w-full focus-visible:outline-none resize-none",
               error
                 ? "border border-[#D73737]"
                 : "border-none focus-visible:ring-1 focus-visible:ring-blue",

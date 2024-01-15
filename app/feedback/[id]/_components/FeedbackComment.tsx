@@ -4,12 +4,6 @@ import { Comment, User } from "@prisma/client";
 import { db } from "@/lib/db";
 import CommentsSection from "./CommentsSection";
 import { cn } from "@/lib/utils";
-import { getUserById } from "../../../../data/user";
-
-// TODO:
-//       - @ prideti reply'iams
-//       - perziureti HTML struktura
-//       - get comments, replies funkcijas iskelti kitur?
 
 type ExtendedComment = Comment & {
   author: User;
@@ -41,7 +35,7 @@ const FeedbackComment = async ({
   });
 
   return (
-    <>
+    <div className={cn(isReply ? "" : "py-6", "flex flex-col gap-6")}>
       <article className={cn("flex flex-col gap-4", isReply && "pl-6")}>
         <div className="flex items-center justify-between">
           <div className="flex gap-4 items-center">
@@ -71,14 +65,20 @@ const FeedbackComment = async ({
       </article>
 
       {replies.length > 0 && (
-        <CommentsSection
-          comments={replies}
-          isReply={true}
-          className={!isReply ? "border-l border-gray border-opacity-10" : ""}
-          replyToUsername={comment.author.username}
-        />
+        <div
+          className={cn(
+            !isReply ? "border-l border-gray border-opacity-10" : "",
+            "flex flex-col gap-6"
+          )}
+        >
+          <CommentsSection
+            comments={replies}
+            isReply={true}
+            replyToUsername={comment.author.username}
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -33,6 +33,7 @@ const CreateFeedbackForm = () => {
         label="Feedback Detail"
         description="Include any specific comments on what should be improved, added, etc."
         name="description"
+        className="h-[120px]"
         error={state?.fieldErrors?.description}
       />
       {state?.error && <p className="text-[#D73737]">{state.error}</p>}
