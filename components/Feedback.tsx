@@ -19,6 +19,7 @@ const FeedbackCard = async ({ feedback }: FeedbackProps) => {
   const hasUserVoted = feedback.upvotedBy.find(
     (vote) => vote.userId === session?.user.id
   );
+
   return (
     <article className="relative w-full rounded-md bg-white p-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-0 hover:text-blue">
       <Link href={`/feedback/${feedback.id}`}>

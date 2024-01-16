@@ -1,5 +1,4 @@
-import { cn } from "@/lib/utils";
-import FeedbackComment from "./FeedbackComment";
+import CommentCard from "./CommentCard";
 import { Comment, User } from "@prisma/client";
 
 type ExtendedComment = Comment & {
@@ -10,18 +9,16 @@ type ExtendedComment = Comment & {
 interface CommentsSectionProps {
   comments: ExtendedComment[];
   isReply: boolean;
-  className?: string;
   replyToUsername?: string;
 }
 
 const CommentsSection = async ({
   comments,
   isReply,
-  className,
   replyToUsername,
 }: CommentsSectionProps) => {
   return comments.map((comment) => (
-    <FeedbackComment
+    <CommentCard
       comment={comment}
       isReply={isReply}
       replyToUsername={replyToUsername}
