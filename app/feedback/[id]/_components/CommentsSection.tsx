@@ -1,3 +1,4 @@
+import { db } from "@/lib/db";
 import CommentCard from "./CommentCard";
 import { Comment, User } from "@prisma/client";
 
@@ -7,22 +8,33 @@ type ExtendedComment = Comment & {
 };
 
 interface CommentsSectionProps {
-  comments: ExtendedComment[];
-  isReply: boolean;
+  feedbackId: string;
+  replyToComment?: ExtendedComment;
   replyToUsername?: string;
 }
 
 const CommentsSection = async ({
-  comments,
-  isReply,
   replyToUsername,
+  feedbackId,
+  replyToComment,
 }: CommentsSectionProps) => {
+  const whereClause = replyToComment
+    ? { feedbackId, replyToId: replyToComment.id }
+    : { feedbackId, replyToId: null };
+
+  const comments = await db.comment.findMany({
+    where: whereClause,
+    include: {
+      author: true,
+      replies: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
   return comments.map((comment) => (
-    <CommentCard
-      comment={comment}
-      isReply={isReply}
-      replyToUsername={replyToUsername}
-    />
+    <CommentCard comment={comment} replyToUsername={replyToUsername} />
   ));
 };
 
