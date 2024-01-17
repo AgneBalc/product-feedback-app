@@ -1,22 +1,12 @@
 "use server";
 
 import { signIn } from "../auth";
-import { UserSignInSchema } from "../validators/user";
+import { UserSignInType } from "../validators/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 
-export const login = async (prevState: any, formData: FormData) => {
-  const data = Object.fromEntries(formData);
-
-  const validatedData = UserSignInSchema.safeParse(data);
-
-  if (!validatedData.success) {
-    return {
-      fieldErrors: validatedData.error.flatten().fieldErrors,
-    };
-  }
-
-  const { username, password } = validatedData.data;
+export const login = async (formData: UserSignInType) => {
+  const { username, password } = formData;
 
   try {
     await signIn("credentials", {

@@ -40,7 +40,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
 
   return (
     <section className="flex flex-col gap-6">
-      <FeedbackCard feedback={feedback} />
+      <FeedbackCard feedback={feedback} isDetailPage={!!id} />
       {comments.length > 0 && (
         <section className="w-full rounded-md bg-white px-6 sm:px-8 pt-6 lg:pb-4">
           <h1 className="text-head-3 sm:-mb-1">

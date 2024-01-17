@@ -1,23 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Dropdown from "@/components/ui/Dropdown";
 import Label from "./Label";
+import { FieldError, UseFormSetValue } from "react-hook-form";
 
 interface FormDropdownProps {
   itemsList: string[];
   label: string;
   description?: string;
-  error?: string[] | undefined;
   name: string;
+  error?: FieldError;
+  setValue: UseFormSetValue<any>;
 }
 
 const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
-  ({ itemsList, label, description, error, name }, ref) => {
+  ({ itemsList, label, description, error, setValue, name }, ref) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [checked, setChecked] = useState(itemsList[0]);
+
+    useEffect(() => {
+      setValue(name, checked);
+    }, [name, checked, setValue]);
 
     return (
       <div className="flex flex-col gap-4 w-full" ref={ref}>
@@ -78,7 +84,7 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
             </Dropdown>
           )}
         </div>
-        {error && <p className="text-[#D73737]">{error}</p>}
+        {error && <p className="text-[#D73737]">{error.message}</p>}
       </div>
     );
   }

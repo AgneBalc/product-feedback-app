@@ -3,60 +3,84 @@
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useFormState } from "react-dom";
-import { register } from "@/lib/actions/register";
+import { registerUser } from "@/lib/actions/register";
+import { useForm } from "react-hook-form";
+import { UserRegisterSchema, UserRegisterType } from "@/lib/validators/user";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterForm = () => {
-  const [state, formAction] = useFormState(register, undefined);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<UserRegisterType>({
+    resolver: zodResolver(UserRegisterSchema),
+    mode: "onTouched",
+  });
 
   const router = useRouter();
 
+  const onSubmit = async (data: UserRegisterType) => {
+    const response = await registerUser(data);
+
+    if (response?.error) {
+      setError("root", {
+        type: "server",
+        message: response.error,
+      });
+    }
+  };
+
   return (
-    <form action={formAction} className="flex flex-col gap-6 w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-6 w-full"
+    >
       <FormInput
         label="Your full name"
         type="text"
-        name="name"
-        error={state?.fieldErrors?.name}
+        {...register("name")}
+        error={errors.name}
       />
       <FormInput
         label="Username"
         type="text"
-        name="username"
-        error={state?.fieldErrors?.username}
+        {...register("username")}
+        error={errors.username}
       />
       <FormInput
         label="Email"
         type="email"
-        name="email"
-        error={state?.fieldErrors?.email}
+        {...register("email")}
+        error={errors.email}
       />
       <FormInput
         label="Password"
         type="password"
         placeholder="at least 6 characters"
-        name="password"
-        error={state?.fieldErrors?.password}
+        {...register("password")}
+        error={errors.password}
       />
       <FormInput
         label="Re-enter password"
         type="password"
-        name="confirmPassword"
-        error={state?.fieldErrors?.confirmPassword}
+        {...register("confirmPassword")}
+        error={errors.confirmPassword}
       />
       <FormInput
         label="Image (URL link)"
         type="url"
-        name="image"
-        error={state?.fieldErrors?.image}
+        {...register("image")}
+        error={errors.image}
       />
-      {state?.error && <p className="text-[#D73737]">{state.error}</p>}
+      {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
         <Button
           variant="purple"
           size="md"
           type="submit"
-          // disabled={isSubmitting}
+          disabled={isSubmitting}
         >
           Create Account
         </Button>

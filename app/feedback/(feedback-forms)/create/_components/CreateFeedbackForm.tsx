@@ -7,42 +7,72 @@ import FormDropdown from "@/components/ui/FormDropdown";
 import { categories } from "@/constants";
 import FormTextField from "@/components/ui/FormTextField";
 import { createFeedback } from "@/lib/actions/createFeedback";
-import { useFormState } from "react-dom";
+import { useForm } from "react-hook-form";
+import {
+  CreateFeedbackType,
+  createFeedbackSchema,
+} from "@/lib/validators/feedback";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const CreateFeedbackForm = () => {
   const router = useRouter();
 
-  const [state, formAction] = useFormState(createFeedback, undefined);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    setError,
+  } = useForm<CreateFeedbackType>({
+    resolver: zodResolver(createFeedbackSchema),
+    mode: "onTouched",
+  });
+
+  const onSubmit = async (data: CreateFeedbackType) => {
+    const response = await createFeedback(data);
+
+    if (response?.error) {
+      setError("root", {
+        type: "server",
+        message: response.error,
+      });
+    }
+  };
 
   return (
-    <form action={formAction} className="flex flex-col gap-6 w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-6 w-full"
+    >
       <FormInput
         type="text"
         label="Feedback Title"
         description="Add a short, descriptive headline"
-        name="title"
-        error={state?.fieldErrors?.title}
+        {...register("title")}
+        error={errors.title}
       />
       <FormDropdown
         itemsList={categories.slice(1)}
         label="Category"
         description="Choose a category for your feedback"
         name="category"
+        setValue={setValue}
+        error={errors.category}
       />
       <FormTextField
         label="Feedback Detail"
         description="Include any specific comments on what should be improved, added, etc."
-        name="description"
         className="h-[120px]"
-        error={state?.fieldErrors?.description}
+        error={errors.description}
+        {...register("description")}
       />
-      {state?.error && <p className="text-[#D73737]">{state.error}</p>}
+      {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
         <Button
           variant="purple"
           size="md"
           type="submit"
-          // disabled={isSubmitting}
+          disabled={isSubmitting}
           className="sm:order-last"
         >
           Add Feedback
@@ -51,7 +81,7 @@ const CreateFeedbackForm = () => {
           variant="cancel"
           size="md"
           type="button"
-          // disabled={isSubmitting}
+          disabled={isSubmitting}
           onClick={() => router.back()}
         >
           Cancel

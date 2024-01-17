@@ -3,21 +3,11 @@
 import { hash } from "bcryptjs";
 import { getUserByUsername } from "@/data/user";
 import { db } from "../db";
-import { UserRegisterSchema } from "../validators/user";
+import { UserRegisterType } from "../validators/user";
 import { redirect } from "next/navigation";
 
-export const register = async (prevState: any, formData: FormData) => {
-  const data = Object.fromEntries(formData);
-
-  const validatedData = UserRegisterSchema.safeParse(data);
-
-  if (!validatedData.success) {
-    return {
-      fieldErrors: validatedData.error.flatten().fieldErrors,
-    };
-  }
-
-  const { email, username, name, password, image } = validatedData.data;
+export const registerUser = async (formData: UserRegisterType) => {
+  const { email, username, name, password, image } = formData;
 
   try {
     const existingUserByEmail = await db.user.findUnique({

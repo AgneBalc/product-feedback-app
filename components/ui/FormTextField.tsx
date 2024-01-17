@@ -1,13 +1,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Label from "./Label";
+import { FieldError } from "react-hook-form";
 
 export interface TextFieldProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   description?: string;
-  error: string[] | undefined;
-  name: string;
+  error?: FieldError;
 }
 
 const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
@@ -29,7 +29,7 @@ const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
             {...props}
           />
         </div>
-        {error && <p className="text-[#D73737]">{error}</p>}
+        {error && <p className="text-[#D73737]">{error.message}</p>}
       </div>
     );
   }
