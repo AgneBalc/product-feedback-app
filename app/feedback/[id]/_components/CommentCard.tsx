@@ -4,6 +4,7 @@ import { Comment, User } from "@prisma/client";
 import { db } from "@/lib/db";
 import CommentsSection from "./CommentsSection";
 import { cn } from "@/lib/utils";
+import CommentReply from "./CommentReply";
 
 type ExtendedComment = Comment & {
   author: User;
@@ -87,9 +88,10 @@ const CommentCard = async ({
               <h4 className="font-bold">{comment.author.name}</h4>
               <span className="text-gray">{`@${comment.author.username}`}</span>
             </div>
-            <Button className="text-blue hover:underline font-semibold">
-              Reply
-            </Button>
+            <CommentReply
+              feedbackId={comment.feedbackId}
+              commentId={comment.id}
+            />
           </div>
 
           {/* tablet / desktop text */}

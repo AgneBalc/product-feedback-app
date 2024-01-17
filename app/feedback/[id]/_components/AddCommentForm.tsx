@@ -14,9 +14,10 @@ import { createComment } from "@/lib/actions/createComment";
 interface AddCommentForm {
   feedbackId: string;
   replyToId?: string;
+  onReply?: () => void;
 }
 
-const AddCommentForm = ({ feedbackId, replyToId }: AddCommentForm) => {
+const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
   const {
     register,
     handleSubmit,
@@ -28,7 +29,6 @@ const AddCommentForm = ({ feedbackId, replyToId }: AddCommentForm) => {
   });
 
   const onSubmit = async (data: CreateCommentType) => {
-    // console.log(data);
     const response = await createComment({
       formData: data,
       feedbackId,
@@ -42,6 +42,8 @@ const AddCommentForm = ({ feedbackId, replyToId }: AddCommentForm) => {
       });
     }
     reset();
+
+    if (replyToId) return onReply!();
   };
 
   return (
@@ -59,7 +61,7 @@ const AddCommentForm = ({ feedbackId, replyToId }: AddCommentForm) => {
         />
         <div className="flex justify-between items-center">
           <span className="text-gray">250 Characters left</span>
-          <Button variant="purple" size="md">
+          <Button variant="purple" size="md" disabled={isSubmitting}>
             Post Comment
           </Button>
         </div>
