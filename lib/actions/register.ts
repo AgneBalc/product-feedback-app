@@ -3,11 +3,17 @@
 import { hash } from "bcryptjs";
 import { getUserByUsername } from "@/data/user";
 import { db } from "../db";
-import { UserRegisterType } from "../validators/user";
+import { UserRegisterSchema, UserRegisterType } from "../validators/user";
 import { redirect } from "next/navigation";
 
 export const registerUser = async (formData: UserRegisterType) => {
-  const { email, username, name, password, image } = formData;
+  const validatedData = UserRegisterSchema.safeParse(formData);
+
+  if (!validatedData.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const { email, username, name, password, image } = validatedData.data;
 
   try {
     const existingUserByEmail = await db.user.findUnique({

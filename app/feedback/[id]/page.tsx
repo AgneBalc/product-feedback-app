@@ -53,7 +53,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
           </div>
         </section>
       )}
-      <AddCommentForm />
+      <AddCommentForm feedbackId={feedback.id} />
     </section>
   );
 };

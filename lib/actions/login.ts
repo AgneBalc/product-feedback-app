@@ -1,12 +1,18 @@
 "use server";
 
 import { signIn } from "../auth";
-import { UserSignInType } from "../validators/user";
+import { UserSignInSchema, UserSignInType } from "../validators/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 
 export const login = async (formData: UserSignInType) => {
-  const { username, password } = formData;
+  const validatedData = UserSignInSchema.safeParse(formData);
+
+  if (!validatedData.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const { username, password } = validatedData.data;
 
   try {
     await signIn("credentials", {
