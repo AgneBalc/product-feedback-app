@@ -21,7 +21,11 @@ const CommentsSection = async ({
   const comments = await getComments(whereClause);
 
   return comments.map((comment) => (
-    <CommentCard comment={comment} replyToUsername={replyToUsername} />
+    <CommentCard
+      key={comment.id}
+      comment={comment}
+      replyToUsername={replyToUsername}
+    />
   ));
 };
 

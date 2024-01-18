@@ -35,4 +35,6 @@ const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
   }
 );
 
+FormTextField.displayName = "FormTextField";
+
 export default FormTextField;

@@ -90,4 +90,6 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
   }
 );
 
+FormDropdown.displayName = "FormDropdown";
+
 export default FormDropdown;
