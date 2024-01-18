@@ -8,7 +8,7 @@ const SignInPage = () => {
       <SignInForm />
       <div className="mt-4 sm:mt-10 text-right">
         <p>
-          If you don't have an account, please{" "}
+          If you don't have an account, please &nbsp;
           <Link
             href="/register"
             className="text-blue text-body-3 underline hover:text-[#8397F8]"
