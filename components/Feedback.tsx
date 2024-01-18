@@ -61,7 +61,12 @@ const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackProps) => {
             width={18}
             height={16}
           />
-          <span className="sm:text-base font-bold text-grayDark">
+          <span
+            className={cn(
+              "sm:text-base font-bold text-grayDark",
+              feedback.comments.length === 0 && "text-opacity-50"
+            )}
+          >
             {feedback.comments.length}
           </span>
         </Button>

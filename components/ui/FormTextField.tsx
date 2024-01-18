@@ -13,7 +13,7 @@ export interface TextFieldProps
 const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
   ({ className, label, name, description, error, ...props }, ref) => {
     return (
-      <div>
+      <div className="w-full">
         <div className="flex flex-col gap-4 w-full">
           {label && <Label label={label} description={description} />}
           <textarea

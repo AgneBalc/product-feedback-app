@@ -47,3 +47,25 @@ export const createComment = async ({
     };
   }
 };
+
+export const getComments = async (whereClause: {
+  feedbackId: string;
+  replyToId: string | null;
+}) => {
+  try {
+    const data = await db.comment.findMany({
+      where: whereClause,
+      include: {
+        author: true,
+        replies: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch comments.");
+  }
+};

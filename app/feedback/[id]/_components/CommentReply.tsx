@@ -3,13 +3,15 @@
 import Button from "@/components/ui/Button";
 import { useState } from "react";
 import AddCommentForm from "./AddCommentForm";
+import { cn } from "../../../../lib/utils";
 
 interface CommentReply {
   feedbackId: string;
   commentId: string;
+  className?: string;
 }
 
-const CommentReply = ({ feedbackId, commentId }: CommentReply) => {
+const CommentReply = ({ feedbackId, commentId, className }: CommentReply) => {
   const [isReplaying, setIsReplaying] = useState(false);
 
   const toggleReply = () => setIsReplaying((prev) => !prev);
@@ -20,7 +22,10 @@ const CommentReply = ({ feedbackId, commentId }: CommentReply) => {
     <>
       <Button
         onClick={toggleReply}
-        className="text-blue hover:underline font-semibold"
+        className={cn(
+          "text-blue hover:underline font-semibold absolute right-0",
+          className
+        )}
       >
         Reply
       </Button>

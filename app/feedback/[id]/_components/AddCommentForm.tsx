@@ -9,7 +9,8 @@ import {
   CreateCommentType,
   createCommentSchema,
 } from "@/lib/validators/comment";
-import { createComment } from "@/lib/actions/createComment";
+import { createComment } from "@/lib/actions/comments.actions";
+import { cn } from "../../../../lib/utils";
 
 interface AddCommentForm {
   feedbackId: string;
@@ -47,22 +48,36 @@ const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
   };
 
   return (
-    <section className="bg-white rounded-md w-full p-6 text-[13px] flex flex-col gap-6 sm:text-body-2 sm:px-8 sm:pb-8">
-      <h1 className="text-head-3 font-semibold">Add Comment</h1>
+    <section
+      className={cn(
+        "w-full",
+        !replyToId &&
+          "bg-white rounded-md w-full p-6 text-[13px] flex flex-col gap-6 sm:text-body-2 sm:px-8 sm:pb-8"
+      )}
+    >
+      {!replyToId && <h1 className="text-head-3 font-semibold">Add Comment</h1>}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 w-full"
+        className={cn(
+          "flex w-full gap-4",
+          replyToId ? "items-start" : "flex-col"
+        )}
       >
         <FormTextField
-          className="h-20 placeholder:text-[#8C92B3] placeholder:font-light"
+          className="h-20 placeholder:text-[#8C92B3] placeholder:font-light text-[13px] sm:text-body-2"
           placeholder="Type your comment here"
           {...register("content")}
           error={errors.content}
         />
         <div className="flex justify-between items-center">
-          <span className="text-gray">250 Characters left</span>
-          <Button variant="purple" size="md" disabled={isSubmitting}>
-            Post Comment
+          {!replyToId && <span className="text-gray">250 Characters left</span>}
+          <Button
+            variant="purple"
+            size="md"
+            disabled={isSubmitting}
+            className="text-nowrap"
+          >
+            {replyToId ? "Post Reply" : "Post Comment"}
           </Button>
         </div>
       </form>
