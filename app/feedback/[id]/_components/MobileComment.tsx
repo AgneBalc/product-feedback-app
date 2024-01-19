@@ -2,6 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CommentCardProps } from "./CommentCard";
 import CommentReply from "./CommentReply";
+import { FaUser } from "react-icons/fa";
 
 const MobileComment = ({ comment, replyToUsername }: CommentCardProps) => {
   return (
@@ -12,16 +13,17 @@ const MobileComment = ({ comment, replyToUsername }: CommentCardProps) => {
       )}
     >
       <div className="flex items-center gap-4 w-full">
-        <Image
-          src={
-            comment.author.image ||
-            "https://cdn.imgbin.com/3/5/9/imgbin-computer-icons-user-profile-user-account-avatar-TfT3FkAEbgD76My1GynmW5KzT.jpg"
-          }
-          alt={comment.author.name}
-          width={40}
-          height={40}
-          className="rounded-[40px]"
-        />
+        {comment.author.image ? (
+          <Image
+            src={comment.author.image}
+            alt={comment.author.name}
+            width={40}
+            height={40}
+            className="rounded-[40px]"
+          />
+        ) : (
+          <FaUser className="w-10 h-10 rounded-[40px] text-gray text-opacity-55" />
+        )}
         <div className="text-[13px]">
           <h4 className="font-bold">{comment.author.name}</h4>
           <span className="text-gray">{`@${comment.author.username}`}</span>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CommentCardProps } from "./CommentCard";
 import CommentReply from "./CommentReply";
+import { FaUser } from "react-icons/fa";
 
 const DesktopComment = ({ comment, replyToUsername }: CommentCardProps) => {
   return (
@@ -11,17 +12,17 @@ const DesktopComment = ({ comment, replyToUsername }: CommentCardProps) => {
         comment.replyToId && "pl-11"
       )}
     >
-      <Image
-        src={
-          comment.author.image ||
-          "https://cdn.imgbin.com/3/5/9/imgbin-computer-icons-user-profile-user-account-avatar-TfT3FkAEbgD76My1GynmW5KzT.jpg"
-        }
-        alt={comment.author.name}
-        width={40}
-        height={40}
-        className="rounded-[40px]"
-      />
-
+      {comment.author.image ? (
+        <Image
+          src={comment.author.image}
+          alt={comment.author.name}
+          width={40}
+          height={40}
+          className="rounded-[40px]"
+        />
+      ) : (
+        <FaUser className="w-10 h-10 rounded-[40px] text-gray text-opacity-55" />
+      )}
       {!comment.replyToId && comment.replies.length > 0 && (
         <div className="absolute w-[1px] bg-gray bg-opacity-10 h-auto left-5 mt-8 top-14 bottom-20" />
       )}
