@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 import FormDropdown from "@/components/ui/FormDropdown";
 import { categories } from "@/constants";
 import FormTextField from "@/components/ui/FormTextField";
-import { createFeedback } from "@/lib/actions/createFeedback";
 import { useForm } from "react-hook-form";
 import {
   CreateFeedbackType,
   createFeedbackSchema,
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createFeedback } from "@/lib/actions/feedback.actions";
 
 const CreateFeedbackForm = () => {
   const router = useRouter();
@@ -25,7 +25,6 @@ const CreateFeedbackForm = () => {
     setError,
   } = useForm<CreateFeedbackType>({
     resolver: zodResolver(createFeedbackSchema),
-    mode: "onTouched",
   });
 
   const onSubmit = async (data: CreateFeedbackType) => {

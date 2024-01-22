@@ -23,9 +23,28 @@ export const status = [
   },
 ];
 
+// export const sortItems = [
+//   "Most Upvotes",
+//   "Least Upvotes",
+//   "Most Comments",
+//   "Least Comments",
+// ];
+
 export const sortItems = [
-  "Most Upvotes",
-  "Least Upvotes",
-  "Most Comments",
-  "Least Comments",
+  {
+    name: "Most Upvotes",
+    orderBy: { upvotes: "desc" },
+  },
+  {
+    name: "Least Upvotes",
+    orderBy: { upvotes: "asc" },
+  },
+  {
+    name: "Most Comments",
+    orderBy: { comments: { _count: "desc" } },
+  },
+  {
+    name: "Least Comments",
+    orderBy: { comments: { _count: "asc" } },
+  },
 ];

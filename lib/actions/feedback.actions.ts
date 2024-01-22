@@ -9,6 +9,39 @@ import {
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
 
+export type SortOrder = "asc" | "desc";
+
+export const getAllFeedbacks = async (sortOrder?: string) => {
+  let orderBy;
+  if (sortOrder === "Most Upvotes" || !sortOrder) {
+    orderBy = { upvotes: "desc" as SortOrder };
+  }
+  if (sortOrder === "Least Upvotes") {
+    orderBy = { upvotes: "asc" as SortOrder };
+  }
+  if (sortOrder === "Most Comments") {
+    orderBy = { comments: { _count: "desc" as SortOrder } };
+  }
+  if (sortOrder === "Least Comments") {
+    orderBy = { comments: { _count: "asc" as SortOrder } };
+  }
+
+  try {
+    const data = await db.feedback.findMany({
+      where: { status: "SUGGESTIONS" },
+      include: {
+        comments: true,
+        upvotedBy: true,
+      },
+      orderBy: orderBy,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch feedbacks.");
+  }
+};
+
 export const createFeedback = async (formData: CreateFeedbackType) => {
   const validatedData = createFeedbackSchema.safeParse(formData);
 

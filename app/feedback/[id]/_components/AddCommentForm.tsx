@@ -23,13 +23,12 @@ const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
     setError,
     watch,
     reset,
   } = useForm<CreateCommentType>({
     resolver: zodResolver(createCommentSchema),
-    mode: "onChange",
   });
 
   const commentLength = watch("content", "").trim().length;
@@ -81,16 +80,15 @@ const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
         />
         <div className="flex justify-between items-center">
           {!replyToId && (
-            <span className="text-gray">{charsLeft} Characters left</span>
+            <span className="text-gray">
+              {charsLeft} Character{charsLeft === 1 ? "" : "s"} left
+            </span>
           )}
           <Button
             variant="purple"
             size="md"
-            disabled={!isValid}
-            className={cn(
-              "text-nowrap",
-              !isValid && "bg-[#C75AF6] cursor-default"
-            )}
+            disabled={isSubmitting}
+            className="text-nowrap"
           >
             {isSubmitting ? "..." : replyToId ? "Post Reply" : "Post Comment"}
           </Button>

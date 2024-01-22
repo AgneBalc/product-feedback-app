@@ -16,7 +16,6 @@ const RegisterForm = () => {
     setError,
   } = useForm<UserRegisterType>({
     resolver: zodResolver(UserRegisterSchema),
-    mode: "onTouched",
   });
 
   const router = useRouter();

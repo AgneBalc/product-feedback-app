@@ -1,14 +1,39 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { sortItems } from "@/constants";
 import Dropdown from "@/components/ui/Dropdown";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SortByButton = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const [checked, setChecked] = useState("Most Upvotes");
+  const [checked, setChecked] = useState(sortItems[0]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("sortOrder", value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleSort = (item: any) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("sortOrder", item.name);
+
+    // return params.toString();
+    // router.push(pathname + "?" + createQueryString(item.name))
+    router.push(`${pathname}?${newParams.toString()}`);
+    setChecked(item);
+    setIsSortOpen(false);
+  };
 
   return (
     <div className="relative h-full flex items-center">
@@ -18,7 +43,7 @@ const SortByButton = () => {
           className="hover:opacity-75"
         >
           <p className="font-light">
-            Sort by : <span className="font-semibold">{checked}</span>
+            Sort by : <span className="font-semibold">{checked.name}</span>
           </p>
         </Button>
         <Image
@@ -37,14 +62,11 @@ const SortByButton = () => {
           {sortItems.map((item) => {
             return (
               <div
-                key={item}
-                onClick={() => {
-                  setChecked(item);
-                  setIsSortOpen(false);
-                }}
+                key={item.name}
+                onClick={() => handleSort(item)}
                 className="text-gray text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
               >
-                <span>{item}</span>
+                <span>{item.name}</span>
                 {checked === item && (
                   <Image
                     src="/shared/icon-check.svg"

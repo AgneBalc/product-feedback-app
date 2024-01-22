@@ -16,7 +16,6 @@ const SignInForm = () => {
     setError,
   } = useForm<UserSignInType>({
     resolver: zodResolver(UserSignInSchema),
-    mode: "onTouched",
   });
 
   const router = useRouter();

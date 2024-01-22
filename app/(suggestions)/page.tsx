@@ -1,27 +1,27 @@
-import { db } from "@/lib/db";
-import FeedbackCard from "@/components/Feedback";
 import { notFound } from "next/navigation";
+import { getAllFeedbacks } from "@/lib/actions/feedback.actions";
+import Navbar from "./_components/NavBar/Navbar";
+import ActionBar from "./_components/ActionBar/ActionBar";
+import FeedbacksList from "./_components/FeedbacksList";
 
-const SuggestionsPage = async () => {
-  const feedbacks = await db.feedback.findMany({
-    where: { status: "SUGGESTIONS" },
-    include: {
-      comments: true,
-      upvotedBy: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+const SuggestionsPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  const feedbacks = await getAllFeedbacks(searchParams.sortOrder);
 
   if (!feedbacks) return notFound();
+  console.log(searchParams.sortOrder);
 
   return (
-    <section className="pt-8 sm:pt-6 px-6 sm:px-0 flex flex-col gap-4 lg:gap-5">
-      {feedbacks.map((feedback) => (
-        <FeedbackCard key={feedback.id} feedback={feedback} />
-      ))}
-    </section>
+    <div className="relative min-w-[375px] sm:max-w-[689px] lg:max-w-[1100px] mx-auto ">
+      <Navbar />
+      <main className="sm:mt-10 lg:mt-0 lg:ml-[286px]">
+        <ActionBar />
+        <FeedbacksList feedbacks={feedbacks} />
+      </main>
+    </div>
   );
 };
 
