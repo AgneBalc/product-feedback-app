@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import FormTextField from "@/components/ui/FormTextField";
 import Button from "@/components/ui/Button";
 import { useForm } from "react-hook-form";
@@ -10,7 +9,7 @@ import {
   createCommentSchema,
 } from "@/lib/validators/comment";
 import { createComment } from "@/lib/actions/comments.actions";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface AddCommentForm {
   feedbackId: string;
@@ -18,16 +17,27 @@ interface AddCommentForm {
   onReply?: () => void;
 }
 
+const initialCommentLength = 250;
+
 const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     setError,
+    watch,
     reset,
   } = useForm<CreateCommentType>({
     resolver: zodResolver(createCommentSchema),
+    mode: "onChange",
   });
+
+  const commentLength = watch("content", "").trim().length;
+
+  let charsLeft = initialCommentLength - commentLength;
+  if (charsLeft < 0) {
+    charsLeft = 0;
+  }
 
   const onSubmit = async (data: CreateCommentType) => {
     const response = await createComment({
@@ -70,14 +80,19 @@ const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
           error={errors.content}
         />
         <div className="flex justify-between items-center">
-          {!replyToId && <span className="text-gray">250 Characters left</span>}
+          {!replyToId && (
+            <span className="text-gray">{charsLeft} Characters left</span>
+          )}
           <Button
             variant="purple"
             size="md"
-            disabled={isSubmitting}
-            className="text-nowrap"
+            disabled={!isValid}
+            className={cn(
+              "text-nowrap",
+              !isValid && "bg-[#C75AF6] cursor-default"
+            )}
           >
-            {replyToId ? "Post Reply" : "Post Comment"}
+            {isSubmitting ? "..." : replyToId ? "Post Reply" : "Post Comment"}
           </Button>
         </div>
       </form>
