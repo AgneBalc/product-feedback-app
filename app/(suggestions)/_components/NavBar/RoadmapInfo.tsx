@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { status } from "@/constants";
 import Button from "@/components/ui/Button";

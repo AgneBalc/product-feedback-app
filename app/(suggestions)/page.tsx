@@ -3,7 +3,6 @@ import { getAllFeedbacks } from "@/lib/actions/feedback.actions";
 import Navbar from "./_components/NavBar/Navbar";
 import ActionBar from "./_components/ActionBar/ActionBar";
 import FeedbacksList from "./_components/FeedbacksList";
-import { CATEGORY_TYPE } from "@prisma/client";
 
 const SuggestionsPage = async ({
   searchParams,

@@ -9,6 +9,7 @@ import {
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
 import { categories, sortOrderList } from "@/constants";
+import { STATUS } from "@prisma/client";
 
 export const getAllFeedbacks = async (sort?: string, filter?: string) => {
   const existingSortOrder = sortOrderList.find((item) => item.name === sort);
@@ -38,6 +39,18 @@ export const getAllFeedbacks = async (sort?: string, filter?: string) => {
     });
 
     return data;
+  } catch (error) {
+    throw new Error("Failed to fetch feedbacks.");
+  }
+};
+
+export const getFeedbacksTotal = async (status: STATUS) => {
+  try {
+    const total = await db.feedback.count({
+      where: { status },
+    });
+
+    return total;
   } catch (error) {
     throw new Error("Failed to fetch feedbacks.");
   }

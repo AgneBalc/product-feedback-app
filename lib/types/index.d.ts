@@ -1,3 +1,5 @@
+import { STATUS } from "@prisma/client";
+
 export type SortOrder = "asc" | "desc";
 
 export type SortBy =
@@ -12,3 +14,9 @@ export type SortBy =
   | undefined;
 
 export type SortOrderList = { name: string; orderBy: SortBy };
+
+export type Status = {
+  name: string;
+  key: STATUS;
+  bgColor: string | null;
+};

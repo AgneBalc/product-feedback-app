@@ -1,8 +1,8 @@
-import { SortOrderList } from "../lib/types";
+import { SortOrderList, Status } from "../lib/types";
 
 export const categories = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
-export const status = [
+export const status: Status[] = [
   {
     name: "Suggestion",
     key: "SUGGESTIONS",
