@@ -8,23 +8,16 @@ import {
 } from "../validators/feedback";
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
+import { sortOrderList } from "@/constants";
 
-export type SortOrder = "asc" | "desc";
+export const getAllFeedbacks = async (searchParams?: string) => {
+  const existingSortOrder = sortOrderList.find(
+    (item) => item.name === searchParams
+  );
 
-export const getAllFeedbacks = async (sortOrder?: string) => {
-  let orderBy;
-  if (sortOrder === "Most Upvotes" || !sortOrder) {
-    orderBy = { upvotes: "desc" as SortOrder };
-  }
-  if (sortOrder === "Least Upvotes") {
-    orderBy = { upvotes: "asc" as SortOrder };
-  }
-  if (sortOrder === "Most Comments") {
-    orderBy = { comments: { _count: "desc" as SortOrder } };
-  }
-  if (sortOrder === "Least Comments") {
-    orderBy = { comments: { _count: "asc" as SortOrder } };
-  }
+  const orderBy = existingSortOrder
+    ? existingSortOrder.orderBy
+    : sortOrderList[0].orderBy;
 
   try {
     const data = await db.feedback.findMany({

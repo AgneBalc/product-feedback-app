@@ -1,3 +1,5 @@
+import { SortOrderList } from "../lib/types";
+
 export const categories = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
 export const status = [
@@ -23,14 +25,7 @@ export const status = [
   },
 ];
 
-// export const sortItems = [
-//   "Most Upvotes",
-//   "Least Upvotes",
-//   "Most Comments",
-//   "Least Comments",
-// ];
-
-export const sortItems = [
+export const sortOrderList: SortOrderList[] = [
   {
     name: "Most Upvotes",
     orderBy: { upvotes: "desc" },

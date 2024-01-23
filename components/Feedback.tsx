@@ -54,7 +54,7 @@ const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackProps) => {
       </Link>
       {/* <Suspense fallback={<div>...</div>}> */}
       <UserUpvotes
-        initialVotesAmount={feedback.upvotes}
+        votesAmount={feedback.upvotes}
         feedbackId={feedback.id}
         isUserUpvoted={hasUserVoted}
       />

@@ -7,23 +7,20 @@ import { upvote } from "../lib/actions/upvote";
 import { UserUpvote } from "@prisma/client";
 
 interface UserUpvotesProps {
-  initialVotesAmount: number;
+  votesAmount: number;
   feedbackId: string;
   isUserUpvoted: UserUpvote | undefined;
 }
 
 const UserUpvotes = ({
-  initialVotesAmount,
+  votesAmount,
   feedbackId,
   isUserUpvoted,
 }: UserUpvotesProps) => {
-  const [votesAmount, setVotesAmount] = useState<number>(initialVotesAmount);
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
 
   const handleVote = async () => {
-    const updatedVotes = await upvote({ feedbackId });
-
-    updatedVotes?.data && setVotesAmount(updatedVotes?.data?.upvotes);
+    await upvote({ feedbackId });
     setUpvoted((prev) => !prev);
   };
 

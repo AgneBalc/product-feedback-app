@@ -9,10 +9,9 @@ const SuggestionsPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const feedbacks = await getAllFeedbacks(searchParams.sortOrder);
+  const feedbacks = await getAllFeedbacks(searchParams.sort);
 
   if (!feedbacks) return notFound();
-  console.log(searchParams.sortOrder);
 
   return (
     <div className="relative min-w-[375px] sm:max-w-[689px] lg:max-w-[1100px] mx-auto ">

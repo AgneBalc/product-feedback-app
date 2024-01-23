@@ -1,38 +1,31 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { useCallback, useState } from "react";
-import { sortItems } from "@/constants";
+import { useState } from "react";
+import { sortOrderList } from "@/constants";
 import Dropdown from "@/components/ui/Dropdown";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SortOrderList } from "@/lib/types";
+import { updateQueryParams } from "@/lib/utils";
 
 const SortByButton = () => {
   const [isSortOpen, setIsSortOpen] = useState(false);
-  const [checked, setChecked] = useState(sortItems[0]);
+  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  const createQueryString = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("sortOrder", value);
+  const sortBy = searchParams.get("sort") || sortOrderList[0].name;
+  const existingSortItem = sortOrderList.find((item) => item.name === sortBy);
 
-      return params.toString();
-    },
-    [searchParams]
-  );
-
-  const handleSort = (item: any) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("sortOrder", item.name);
-
-    // return params.toString();
-    // router.push(pathname + "?" + createQueryString(item.name))
-    router.push(`${pathname}?${newParams.toString()}`);
-    setChecked(item);
+  const handleSort = (item: SortOrderList) => {
     setIsSortOpen(false);
+    const newParams = updateQueryParams({
+      params: searchParams.toString(),
+      name: "sort",
+      value: item.name,
+    });
+    router.push(`${pathname}${newParams}`);
   };
 
   return (
@@ -43,7 +36,10 @@ const SortByButton = () => {
           className="hover:opacity-75"
         >
           <p className="font-light">
-            Sort by : <span className="font-semibold">{checked.name}</span>
+            Sort by :{" "}
+            <span className="font-semibold">
+              {!existingSortItem ? sortOrderList[0].name : sortBy}
+            </span>
           </p>
         </Button>
         <Image
@@ -59,7 +55,7 @@ const SortByButton = () => {
       </div>
       {isSortOpen && (
         <Dropdown className="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
-          {sortItems.map((item) => {
+          {sortOrderList.map((item) => {
             return (
               <div
                 key={item.name}
@@ -67,7 +63,7 @@ const SortByButton = () => {
                 className="text-gray text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
               >
                 <span>{item.name}</span>
-                {checked === item && (
+                {sortBy === item.name && (
                   <Image
                     src="/shared/icon-check.svg"
                     alt="Check Icon"
