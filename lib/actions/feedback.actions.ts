@@ -8,20 +8,28 @@ import {
 } from "../validators/feedback";
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
-import { sortOrderList } from "@/constants";
+import { categories, sortOrderList } from "@/constants";
 
-export const getAllFeedbacks = async (searchParams?: string) => {
-  const existingSortOrder = sortOrderList.find(
-    (item) => item.name === searchParams
-  );
+export const getAllFeedbacks = async (sort?: string, filter?: string) => {
+  const existingSortOrder = sortOrderList.find((item) => item.name === sort);
 
   const orderBy = existingSortOrder
     ? existingSortOrder.orderBy
     : sortOrderList[0].orderBy;
 
+  const existingCategory = categories.find((category) => category === filter);
+  let whereClause = {};
+  if (existingCategory && existingCategory !== "All") {
+    whereClause = { status: "SUGGESTIONS", category: filter };
+  } else {
+    whereClause = {
+      status: "SUGGESTIONS",
+    };
+  }
+
   try {
     const data = await db.feedback.findMany({
-      where: { status: "SUGGESTIONS" },
+      where: whereClause,
       include: {
         comments: true,
         upvotedBy: true,
