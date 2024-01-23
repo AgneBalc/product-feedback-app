@@ -3,7 +3,11 @@ import SortByButton from "./SortByButton";
 import Image from "next/image";
 import Link from "next/link";
 
-const ActionBar = () => {
+interface ActionBarProps {
+  totalFeedbacks: number;
+}
+
+const ActionBar = ({ totalFeedbacks }: ActionBarProps) => {
   return (
     <header className="bg-blueDark w-full h-14 sm:h-[72px] flex items-center text-white px-6 sm:pr-3 justify-between sm:justify-start sm:gap-[38px] relative sm:rounded-md">
       <div className="sm:flex gap-4 hidden items-center">
@@ -13,7 +17,9 @@ const ActionBar = () => {
           width={23}
           height={24}
         />
-        <h3 className="text-head-3">6 Suggestions</h3>
+        <h3 className="text-head-3">
+          {totalFeedbacks} Suggestion{totalFeedbacks !== 1 && "s"}
+        </h3>
       </div>
       <SortByButton />
       <Button
