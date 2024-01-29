@@ -4,7 +4,7 @@ import Navbar from "./_components/NavBar/Navbar";
 import ActionBar from "./_components/ActionBar/ActionBar";
 import FeedbacksList from "./_components/FeedbacksList";
 import { Suspense } from "react";
-import EmptySuggestions from "../../components/ui/EmptySuggestions";
+import EmptySuggestions from "@/components/ui/EmptySuggestions";
 
 const SuggestionsPage = async ({
   searchParams,
