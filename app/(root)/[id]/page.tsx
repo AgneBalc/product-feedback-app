@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
-import FeedbackCard from "@/components/Feedback";
-import CommentsSection from "./_components/CommentsSection";
-import AddCommentForm from "./_components/AddCommentForm";
+import FeedbackCard from "@/components/feedbacks/FeedbackCard";
+import CommentsSection from "../../../components/comments/CommentsSection";
+import AddCommentForm from "../../../components/forms/AddCommentForm";
 
 interface FeedbackDetailPageProps {
   params: { id: string };

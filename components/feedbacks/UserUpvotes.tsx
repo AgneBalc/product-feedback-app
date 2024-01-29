@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 import Image from "next/image";
-import { upvote } from "../lib/actions/upvote";
+import { upvote } from "../../lib/actions/upvote";
 import { UserUpvote } from "@prisma/client";
 
 interface UserUpvotesProps {

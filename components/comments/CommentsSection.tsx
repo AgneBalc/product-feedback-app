@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import CommentCard from "./CommentCard";
 import { ExtendedComment } from "@/lib/types/db";
-import { getComments } from "../../../../lib/actions/comments.actions";
+import { getComments } from "../../lib/actions/comments.actions";
 
 interface CommentsSectionProps {
   feedbackId: string;

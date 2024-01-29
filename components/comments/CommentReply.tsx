@@ -2,8 +2,8 @@
 
 import Button from "@/components/ui/Button";
 import { useState } from "react";
-import AddCommentForm from "./AddCommentForm";
-import { cn } from "../../../../lib/utils";
+import AddCommentForm from "@/components/forms/AddCommentForm";
+import { cn } from "@/lib/utils";
 
 interface CommentReply {
   feedbackId: string;

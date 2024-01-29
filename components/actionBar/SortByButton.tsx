@@ -9,7 +9,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SortOrderList } from "@/lib/types";
 import { updateQueryParams } from "@/lib/utils";
 
-const SortByButton = () => {
+interface SortByButtonProps {
+  noSuggestions: boolean;
+}
+
+const SortByButton = ({ noSuggestions }: SortByButtonProps) => {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -33,7 +37,8 @@ const SortByButton = () => {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => setIsSortOpen((prev) => !prev)}
-          className="hover:opacity-75"
+          className={noSuggestions ? "opacity-45" : "hover:opacity-75"}
+          disabled={noSuggestions}
         >
           <p className="font-light">
             Sort by :{" "}
@@ -51,6 +56,7 @@ const SortByButton = () => {
           alt="Arrow icon"
           width={10}
           height={7}
+          className={noSuggestions ? "opacity-45" : ""}
         />
       </div>
       {isSortOpen && (

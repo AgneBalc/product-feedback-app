@@ -1,10 +1,10 @@
 import FormWrapper from "@/components/ui/Form";
-import SignInForm from "../_components/SignInForm";
+import SignInForm from "../../../components/forms/SignInForm";
 import Link from "next/link";
 
 const SignInPage = () => {
   return (
-    <FormWrapper title="Sign In">
+    <FormWrapper title="Sign In" image="/shared/icon-edit-feedback.svg">
       <SignInForm />
       <div className="mt-4 sm:mt-10 text-right">
         <p>

@@ -22,7 +22,7 @@ const ActionBar = ({ totalFeedbacks }: ActionBarProps) => {
             {totalFeedbacks} Suggestion{totalFeedbacks !== 1 && "s"}
           </h3>
         </div>
-        <SortByButton />
+        <SortByButton noSuggestions={totalFeedbacks === 0} />
       </div>
       <Link href="/feedback/create">
         <Button variant="purple" size="md">

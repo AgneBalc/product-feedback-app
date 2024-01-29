@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { getAllFeedbacks } from "@/lib/actions/feedback.actions";
-import Navbar from "./_components/NavBar/Navbar";
-import ActionBar from "./_components/ActionBar/ActionBar";
-import FeedbacksList from "./_components/FeedbacksList";
+import Navbar from "../../components/navBar/Navbar";
+import ActionBar from "../../components/actionBar/ActionBar";
 import { Suspense } from "react";
 import EmptySuggestions from "@/components/ui/EmptySuggestions";
+import FeedbackCard from "@/components/feedbacks/FeedbackCard";
 
 const SuggestionsPage = async ({
   searchParams,
@@ -28,7 +28,9 @@ const SuggestionsPage = async ({
             {feedbacks.length === 0 ? (
               <EmptySuggestions />
             ) : (
-              <FeedbacksList feedbacks={feedbacks} />
+              feedbacks.map((feedback) => (
+                <FeedbackCard key={feedback.id} feedback={feedback} />
+              ))
             )}
           </Suspense>
         </section>

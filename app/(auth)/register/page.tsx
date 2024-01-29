@@ -1,10 +1,10 @@
 import FormWrapper from "@/components/ui/Form";
-import RegisterForm from "../_components/RegisterForm";
+import RegisterForm from "../../../components/forms/RegisterForm";
 import Link from "next/link";
 
 const RegisterPage = () => {
   return (
-    <FormWrapper title="Create account">
+    <FormWrapper title="Create account" image="/shared/icon-new-feedback.svg">
       <RegisterForm />
       <div className="mt-4 sm:mt-10 text-right">
         <p>

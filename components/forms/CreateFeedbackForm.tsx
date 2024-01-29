@@ -14,6 +14,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFeedback } from "@/lib/actions/feedback.actions";
 
+interface CreateFeedbackFormProps {}
+
 const CreateFeedbackForm = () => {
   const router = useRouter();
 
