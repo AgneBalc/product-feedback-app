@@ -3,7 +3,7 @@ import { getAllFeedbacks } from "@/lib/actions/feedback.actions";
 import Navbar from "../../components/navBar/Navbar";
 import ActionBar from "../../components/actionBar/ActionBar";
 import { Suspense } from "react";
-import EmptySuggestions from "@/components/ui/EmptySuggestions";
+import EmptySuggestions from "@/components/shared/EmptySuggestions";
 import FeedbackCard from "@/components/feedbacks/FeedbackCard";
 
 const SuggestionsPage = async ({

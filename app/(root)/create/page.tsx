@@ -1,5 +1,5 @@
-import FormWrapper from "@/components/ui/Form";
-import CreateFeedbackForm from "../../../components/forms/CreateFeedbackForm";
+import FormWrapper from "@/components/shared/FormWrapper";
+import CreateFeedbackForm from "@/components/forms/CreateFeedbackForm";
 
 const CreateFeedbackPage = async () => {
   return (

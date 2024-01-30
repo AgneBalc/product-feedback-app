@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Comment, Feedback, UserUpvote } from "@prisma/client";
 import UserUpvotes from "./UserUpvotes";
 import { Suspense } from "react";
-import { auth } from "../../lib/auth";
-import { cn } from "../../lib/utils";
+import { auth } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type ExtendedPost = Feedback & {
@@ -31,10 +31,7 @@ const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackProps) => {
         !isDetailPage && "hover:text-blue"
       )}
     >
-      <Link
-        href={!isDetailPage ? `/feedback/${feedback.id}` : ""}
-        className="w-full"
-      >
+      <Link href={!isDetailPage ? `/${feedback.id}` : ""} className="w-full">
         <div className="flex flex-col gap-2 sm:gap-1 sm:pl-20">
           <h2 className="text-[13px] font-bold tracking-[-0.1181px] sm:text-head-3">
             {feedback.title}

@@ -44,6 +44,22 @@ export const getAllFeedbacks = async (sort?: string, filter?: string) => {
   }
 };
 
+export const getFeedbackById = async (id: string) => {
+  try {
+    const data = await db.feedback.findUnique({
+      where: { id },
+      include: {
+        comments: true,
+        upvotedBy: true,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch feedback.");
+  }
+};
+
 export const getFeedbacksTotal = async (status: STATUS) => {
   try {
     const total = await db.feedback.count({

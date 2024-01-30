@@ -1,4 +1,4 @@
-import FormWrapper from "@/components/ui/Form";
+import FormWrapper from "@/components/shared/FormWrapper";
 import SignInForm from "../../../components/forms/SignInForm";
 import Link from "next/link";
 

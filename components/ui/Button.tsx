@@ -11,6 +11,7 @@ const buttonVariants = cva(
         purple: "bg-purple text-white hover:bg-[#C75AF6]",
         blue: "bg-blue text-white hover:bg-[#7C91F9]",
         cancel: "bg-grayDark text-white hover:bg-[#656EA3]",
+        red: "bg-[#D73737] text-white hover:bg-[#E98888]",
       },
       size: {
         sm: "h-[30px] px-4",

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Button from "./Button";
+import Button from "../ui/Button";
 
 const GoBackButton = () => {
   const router = useRouter();
