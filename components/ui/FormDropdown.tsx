@@ -1,32 +1,35 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Dropdown from "@/components/ui/Dropdown";
 import Label from "./Label";
-import { FieldError, UseFormSetValue } from "react-hook-form";
+import { FieldError, UseFormGetValues, UseFormSetValue } from "react-hook-form";
 
-interface FormDropdownProps {
+// interface FormDropdownProps {
+interface FormDropdownProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   itemsList: string[];
   label: string;
   description?: string;
   name: string;
   error?: FieldError;
   setValue: UseFormSetValue<any>;
+  getValues: UseFormGetValues<any>;
 }
 
-const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
-  ({ itemsList, label, description, error, setValue, name }, ref) => {
+const FormDropdown = React.forwardRef<HTMLInputElement, FormDropdownProps>(
+  (
+    { itemsList, label, description, error, setValue, name, getValues },
+    ref
+  ) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [checked, setChecked] = useState(itemsList[0]);
 
-    useEffect(() => {
-      setValue(name, checked);
-    }, [name, checked, setValue]);
+    const selectedValue = getValues(name);
 
     return (
-      <div className="flex flex-col gap-4 w-full" ref={ref}>
+      <div className="flex flex-col gap-4 w-full">
         <Label label={label} description={description} />
         <div className="relative h-full flex items-center">
           <div className="relative flex gap-2 items-center w-full">
@@ -40,8 +43,8 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
               <input
                 type="text"
                 readOnly
-                name={name}
-                value={checked}
+                value={selectedValue}
+                ref={ref}
                 className="cursor-pointer bg-grayLightest border-none rounded-sm h-12 flex items-center px-6 w-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue"
               />
               <Image
@@ -64,13 +67,13 @@ const FormDropdown = React.forwardRef<HTMLDivElement, FormDropdownProps>(
                   <div
                     key={item}
                     onClick={() => {
-                      setChecked(item);
+                      setValue(name, item);
                       setIsDropdownOpen(false);
                     }}
                     className="text-gray sm:text-base w-full text-left px-6 py-3 cursor-pointer hover:text-purple flex items-center justify-between"
                   >
                     <span>{item}</span>
-                    {checked === item && (
+                    {selectedValue === item && (
                       <Image
                         src="/shared/icon-check.svg"
                         alt="Check Icon"

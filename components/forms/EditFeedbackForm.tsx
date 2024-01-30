@@ -12,8 +12,7 @@ import {
   editFeedbackSchema,
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFeedback } from "@/lib/actions/feedback.actions";
-import { ExtendedFeedback } from "../../lib/types/db";
+import { ExtendedFeedback } from "@/lib/types/db";
 
 interface EditFeedbackForm {
   feedback: ExtendedFeedback;
@@ -34,6 +33,7 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
     formState: { errors, isSubmitting },
     setValue,
     setError,
+    getValues,
   } = useForm<EditFeedbackType>({
     resolver: zodResolver(editFeedbackSchema),
     defaultValues: {
@@ -45,20 +45,21 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
   });
 
   const onSubmit = async (data: EditFeedbackType) => {
-    const response = await createFeedback(data);
+    // const response = await createFeedback(data);
 
-    if (response?.error) {
-      setError("root", {
-        type: "server",
-        message: response.error,
-      });
-    }
+    // if (response?.error) {
+    //   setError("root", {
+    //     type: "server",
+    //     message: response.error,
+    //   });
+    // }
+    console.log(data);
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-6 w-full"
+      className="flex flex-col gap-6 w-full sm:pt-9"
     >
       <FormInput
         type="text"
@@ -71,17 +72,19 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
         itemsList={categories.slice(1)}
         label="Category"
         description="Choose a category for your feedback"
-        name="category"
         setValue={setValue}
+        getValues={getValues}
+        {...register("category")}
         error={errors.category}
       />
       <FormDropdown
         itemsList={statusList}
         label="Update Status"
         description="Change feedback state"
-        name="status"
         setValue={setValue}
-        error={errors.category}
+        getValues={getValues}
+        {...register("status")}
+        error={errors.status}
       />
       <FormTextField
         label="Feedback Detail"

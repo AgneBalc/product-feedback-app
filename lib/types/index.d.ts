@@ -1,5 +1,4 @@
 import { STATUS } from "@prisma/client";
-
 export type SortOrder = "asc" | "desc";
 
 export type SortBy =
@@ -15,8 +14,10 @@ export type SortBy =
 
 export type SortOrderList = { name: string; orderBy: SortBy };
 
+type StatusName = "Suggestion" | "Planned" | "In-Progress" | "Live";
+
 export type Status = {
-  name: string;
+  name: StatusName;
   key: STATUS;
   bgColor: string | null;
 };

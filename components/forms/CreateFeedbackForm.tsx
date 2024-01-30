@@ -22,9 +22,15 @@ const CreateFeedbackForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    getValues,
     setError,
   } = useForm<CreateFeedbackType>({
     resolver: zodResolver(createFeedbackSchema),
+    defaultValues: {
+      title: "",
+      category: "Feature",
+      description: "",
+    },
   });
 
   const onSubmit = async (data: CreateFeedbackType) => {
@@ -54,7 +60,8 @@ const CreateFeedbackForm = () => {
         itemsList={categories.slice(1)}
         label="Category"
         description="Choose a category for your feedback"
-        name="category"
+        getValues={getValues}
+        {...register("category")}
         setValue={setValue}
         error={errors.category}
       />
