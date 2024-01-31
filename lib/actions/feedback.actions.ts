@@ -4,11 +4,13 @@ import { revalidatePath } from "next/cache";
 import { db } from "../db";
 import {
   CreateFeedbackType,
+  EditFeedbackType,
   createFeedbackSchema,
+  editFeedbackSchema,
 } from "../validators/feedback";
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
-import { categories, sortOrderList } from "@/constants";
+import { categories, sortOrderList, statusList } from "@/constants";
 import { STATUS } from "@prisma/client";
 
 export const getAllFeedbacks = async (sort?: string, filter?: string) => {
@@ -103,4 +105,42 @@ export const createFeedback = async (formData: CreateFeedbackType) => {
     };
   }
   redirect("/");
+};
+
+export const updateFeedback = async (
+  formData: EditFeedbackType,
+  id: string
+) => {
+  const validatedData = editFeedbackSchema.safeParse(formData);
+
+  if (!validatedData.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const { title, category, status, description } = validatedData.data;
+  const statusKey = statusList.find((item) => item.name === status)!.key;
+
+  const session = await auth();
+
+  if (!session?.user) {
+    return { error: "Unauthorized" };
+  }
+
+  try {
+    await db.feedback.update({
+      where: { id },
+      data: {
+        title,
+        category,
+        description,
+        status: statusKey,
+      },
+    });
+    revalidatePath(`/${id}`);
+  } catch (error) {
+    return {
+      error: "Could not update feedback at this time. Please try again later",
+    };
+  }
+  redirect(`/${id}`);
 };

@@ -4,7 +4,7 @@ import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import FormDropdown from "@/components/ui/FormDropdown";
-import { categories, status } from "@/constants";
+import { categories, statusList } from "@/constants";
 import FormTextField from "@/components/ui/FormTextField";
 import { useForm } from "react-hook-form";
 import {
@@ -13,17 +13,18 @@ import {
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedFeedback } from "@/lib/types/db";
+import { updateFeedback } from "@/lib/actions/feedback.actions";
 
 interface EditFeedbackForm {
   feedback: ExtendedFeedback;
 }
 
-const statusList = status.map((item) => item.name);
+const statusNamesList = statusList.map((item) => item.name);
 
 const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
   const router = useRouter();
 
-  const existingStatus = status.find(
+  const existingStatus = statusList.find(
     (stat) => stat.key === feedback.status
   )!.name;
 
@@ -45,15 +46,14 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
   });
 
   const onSubmit = async (data: EditFeedbackType) => {
-    // const response = await createFeedback(data);
+    const response = await updateFeedback(data, feedback.id);
 
-    // if (response?.error) {
-    //   setError("root", {
-    //     type: "server",
-    //     message: response.error,
-    //   });
-    // }
-    console.log(data);
+    if (response?.error) {
+      setError("root", {
+        type: "server",
+        message: response.error,
+      });
+    }
   };
 
   return (
@@ -78,7 +78,7 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
         error={errors.category}
       />
       <FormDropdown
-        itemsList={statusList}
+        itemsList={statusNamesList}
         label="Update Status"
         description="Change feedback state"
         setValue={setValue}
