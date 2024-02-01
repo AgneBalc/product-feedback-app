@@ -144,3 +144,46 @@ export const updateFeedback = async (
   }
   redirect(`/${id}`);
 };
+
+export const disconnectReplies = async (id: string) => {
+  try {
+    const comments = await db.comment.findMany({
+      where: { feedbackId: id },
+      include: { replies: true },
+    });
+
+    const commentsWithReplies = comments.filter(
+      (comment) => comment.replies.length > 0
+    );
+
+    for (const comment of commentsWithReplies) {
+      const replyIds = comment.replies.map((reply) => reply.id);
+
+      await db.comment.update({
+        where: { id: comment.id },
+        data: {
+          replies: {
+            disconnect: replyIds.map((replyId) => ({ id: replyId })),
+          },
+        },
+      });
+    }
+  } catch (error) {
+    return { error: "Database Error: Failed to disconnect replies." };
+  }
+};
+
+export const deleteFeedback = async (id: string) => {
+  try {
+    await disconnectReplies(id);
+
+    await db.feedback.delete({
+      where: { id },
+    });
+
+    revalidatePath("/");
+  } catch (error) {
+    return { error: "Database Error: Failed to Delete Post." };
+  }
+  redirect("/");
+};

@@ -13,7 +13,8 @@ import {
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExtendedFeedback } from "@/lib/types/db";
-import { updateFeedback } from "@/lib/actions/feedback.actions";
+import { deleteFeedback, updateFeedback } from "@/lib/actions/feedback.actions";
+import { useTransition } from "react";
 
 interface EditFeedbackForm {
   feedback: ExtendedFeedback;
@@ -23,6 +24,7 @@ const statusNamesList = statusList.map((item) => item.name);
 
 const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
   const router = useRouter();
+  let [isPending, startTransition] = useTransition();
 
   const existingStatus = statusList.find(
     (stat) => stat.key === feedback.status
@@ -118,11 +120,16 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
         <Button
           variant="red"
           size="md"
-          type="submit"
+          type="button"
           disabled={isSubmitting}
           className="sm:order-first"
+          onClick={() =>
+            startTransition(async () => {
+              await deleteFeedback(feedback.id);
+            })
+          }
         >
-          Delete
+          {isPending ? "Deleting..." : "Delete"}
         </Button>
       </div>
     </form>

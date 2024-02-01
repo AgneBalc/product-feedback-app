@@ -1,8 +1,7 @@
 import FormWrapper from "@/components/shared/FormWrapper";
-import CreateFeedbackForm from "@/components/forms/CreateFeedbackForm";
 import { getFeedbackById } from "@/lib/actions/feedback.actions";
 import { notFound } from "next/navigation";
-import EditFeedbackForm from "../../../../components/forms/EditFeedbackForm";
+import EditFeedbackForm from "@/components/forms/EditFeedbackForm";
 
 interface EditPageProps {
   params: { id: string };
@@ -14,6 +13,7 @@ const EditPage = async ({ params }: EditPageProps) => {
   const feedback = await getFeedbackById(id);
 
   if (!feedback) return notFound();
+
   return (
     <FormWrapper
       title={`Editing '${feedback.title}'`}

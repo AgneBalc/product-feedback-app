@@ -1,4 +1,3 @@
-import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import FeedbackCard from "@/components/feedbacks/FeedbackCard";
 import CommentsSection from "@/components/comments/CommentsSection";
@@ -7,6 +6,7 @@ import GoBackButton from "@/components/shared/GoBackButton";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { getFeedbackById } from "@/lib/actions/feedback.actions";
+import { db } from "../../../lib/db";
 
 interface FeedbackDetailPageProps {
   params: { id: string };
