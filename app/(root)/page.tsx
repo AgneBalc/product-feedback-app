@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getAllFeedbacks } from "@/lib/actions/feedback.actions";
-import Navbar from "../../components/navBar/Navbar";
-import ActionBar from "../../components/actionBar/ActionBar";
+import { getAllSuggestions } from "@/lib/actions/feedback.actions";
+import Navbar from "@/components/navBar/Navbar";
+import ActionBar from "@/components/actionBar/ActionBar";
 import { Suspense } from "react";
 import EmptySuggestions from "@/components/shared/EmptySuggestions";
 import FeedbackCard from "@/components/feedbacks/FeedbackCard";
@@ -11,10 +11,7 @@ const SuggestionsPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
-  const feedbacks = await getAllFeedbacks(
-    searchParams.sort,
-    searchParams.filter
-  );
+  const feedbacks = await getAllSuggestions(searchParams);
 
   if (!feedbacks) return notFound();
 

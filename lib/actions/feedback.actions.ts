@@ -13,17 +13,31 @@ import { redirect } from "next/navigation";
 import { categories, sortOrderList, statusList } from "@/constants";
 import { STATUS } from "@prisma/client";
 
-export const getAllFeedbacks = async (sort?: string, filter?: string) => {
-  const existingSortOrder = sortOrderList.find((item) => item.name === sort);
+export const getAllSuggestions = async (searchParams?: {
+  sort?: string;
+  filter?: string;
+}) => {
+  let orderBy;
+  if (searchParams?.sort) {
+    const existingSortOrder = sortOrderList.find(
+      (item) => item.name === searchParams.sort
+    );
 
-  const orderBy = existingSortOrder
-    ? existingSortOrder.orderBy
-    : sortOrderList[0].orderBy;
+    if (existingSortOrder) {
+      orderBy = existingSortOrder.orderBy;
+    }
+  } else {
+    orderBy = sortOrderList[0].orderBy;
+  }
 
-  const existingCategory = categories.find((category) => category === filter);
   let whereClause = {};
-  if (existingCategory && existingCategory !== "All") {
-    whereClause = { status: "SUGGESTIONS", category: filter };
+  if (searchParams?.filter) {
+    const existingCategory = categories.find(
+      (category) => category === searchParams.filter
+    );
+    if (existingCategory && existingCategory !== "All") {
+      whereClause = { status: "SUGGESTIONS", category: searchParams.filter };
+    }
   } else {
     whereClause = {
       status: "SUGGESTIONS",
@@ -38,6 +52,23 @@ export const getAllFeedbacks = async (sort?: string, filter?: string) => {
         upvotedBy: true,
       },
       orderBy: orderBy,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch feedbacks.");
+  }
+};
+
+export const getAllNotSuggestions = async () => {
+  try {
+    const data = await db.feedback.findMany({
+      where: { status: { not: "SUGGESTIONS" } },
+      include: {
+        comments: true,
+        upvotedBy: true,
+      },
+      orderBy: sortOrderList[0].orderBy,
     });
 
     return data;
@@ -136,13 +167,13 @@ export const updateFeedback = async (
         status: statusKey,
       },
     });
-    revalidatePath(`/${id}`);
+    revalidatePath(`/feedback/${id}`);
   } catch (error) {
     return {
       error: "Could not update feedback at this time. Please try again later",
     };
   }
-  redirect(`/${id}`);
+  redirect(`/feedback/${id}`);
 };
 
 export const disconnectReplies = async (id: string) => {

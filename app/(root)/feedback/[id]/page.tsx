@@ -6,7 +6,7 @@ import GoBackButton from "@/components/shared/GoBackButton";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { getFeedbackById } from "@/lib/actions/feedback.actions";
-import { db } from "../../../lib/db";
+import { db } from "../../../../lib/db";
 
 interface FeedbackDetailPageProps {
   params: { id: string };
@@ -23,7 +23,7 @@ const FeedbackDetailPage = async ({ params }: FeedbackDetailPageProps) => {
     <main className="min-w-[327px] sm:max-w-[689px] lg:max-w-[730px] mx-auto flex flex-col gap-6 p-6 sm:p-0">
       <div className="flex justify-between items-center">
         <GoBackButton />
-        <Link href={`${feedback.id}/edit`}>
+        <Link href={`/feedback/${feedback.id}/edit`}>
           <Button variant="blue" size="md">
             Edit Feedback
           </Button>

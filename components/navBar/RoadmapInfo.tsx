@@ -18,7 +18,7 @@ const RoadmapInfo = async () => {
       <div className="flex justify-between items-center">
         <h3 className="text-head-3">Roadmap</h3>
         <Link
-          href="/"
+          href="/roadmap"
           className={cn(
             "text-blue underline transition ease-in-out duration-300",
             isDisabled ? "cursor-default opacity-25" : "hover:text-[#8397F8]"
