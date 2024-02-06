@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
-import { upvote } from "../../lib/actions/upvote";
+import { upvote } from "@/lib/actions/upvote";
 import { UserUpvote } from "@prisma/client";
 
 interface UserUpvotesProps {
@@ -29,7 +29,7 @@ const UserUpvotes = ({
       onClick={handleVote}
       size="fixed"
       variant="light"
-      className={`flex sm:flex-col items-center gap-[10px] justify-start sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7
+      className={`flex sm:flex-col items-center sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7
       ${upvoted && "bg-blue"}`}
     >
       <Image
@@ -43,7 +43,7 @@ const UserUpvotes = ({
         height={7}
       />
       <span
-        className={`text-body-3 font-bold ${
+        className={`text-body-3 font-bold w-full ${
           upvoted ? "text-white" : "text-grayDark"
         }`}
       >

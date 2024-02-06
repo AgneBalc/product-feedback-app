@@ -19,5 +19,8 @@ type StatusName = "Suggestion" | "Planned" | "In-Progress" | "Live";
 export type Status = {
   name: StatusName;
   key: STATUS;
-  bgColor: string | null;
+  bgColor: string;
+  borderColor: string;
+  hover: string;
+  description: string;
 };

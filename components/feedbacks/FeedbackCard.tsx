@@ -1,19 +1,14 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
-import { Comment, Feedback, UserUpvote } from "@prisma/client";
 import UserUpvotes from "./UserUpvotes";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-
-type ExtendedPost = Feedback & {
-  upvotedBy: UserUpvote[];
-  comments: Comment[];
-};
+import { ExtendedFeedback } from "@/lib/types/db";
 
 interface FeedbackProps {
-  feedback: ExtendedPost;
+  feedback: ExtendedFeedback;
   isDetailPage?: boolean;
 }
 
