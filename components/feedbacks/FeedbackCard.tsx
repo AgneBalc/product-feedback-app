@@ -52,6 +52,7 @@ const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackProps) => {
         votesAmount={feedback.upvotes}
         feedbackId={feedback.id}
         isUserUpvoted={hasUserVoted}
+        className="sm:flex-col sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 sm:pl-0 sm:h-[53px] sm:w-10 sm:pb-2"
       />
       {/* </Suspense> */}
       <div className="flex justify-end items-center">

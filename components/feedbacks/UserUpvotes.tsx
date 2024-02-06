@@ -5,17 +5,20 @@ import Button from "../ui/Button";
 import Image from "next/image";
 import { upvote } from "@/lib/actions/upvote";
 import { UserUpvote } from "@prisma/client";
+import { cn } from "../../lib/utils";
 
 interface UserUpvotesProps {
   votesAmount: number;
   feedbackId: string;
   isUserUpvoted: UserUpvote | undefined;
+  className?: string;
 }
 
 const UserUpvotes = ({
   votesAmount,
   feedbackId,
   isUserUpvoted,
+  className,
 }: UserUpvotesProps) => {
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
 
@@ -27,10 +30,12 @@ const UserUpvotes = ({
   return (
     <Button
       onClick={handleVote}
-      size="fixed"
       variant="light"
-      className={`flex sm:flex-col items-center sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7
-      ${upvoted && "bg-blue"}`}
+      className={cn(
+        "flex items-center w-[69px] h-8 pl-4",
+        upvoted && "bg-blue",
+        className
+      )}
     >
       <Image
         src={

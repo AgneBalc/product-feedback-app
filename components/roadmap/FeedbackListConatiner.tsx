@@ -20,8 +20,9 @@ const FeedbackListConatiner = ({ statusList }: FeedbackListConatinerProps) => {
   const currentStatus = statusList.find((item) => item.name === selectedTab);
 
   return (
-    <section>
-      <div className="flex border-b border-[#8C92B3] border-opacity-25">
+    <main className="px-6 sm:px-0 sm:py-8 lg:pt-12 sm:flex sm:gap-[10px] sm:justify-evenly">
+      {/* Mobile Tabs */}
+      <div className="flex border-b border-[#8C92B3] border-opacity-25 -mx-6 sm:hidden">
         {statusList.map((status) => (
           <button
             key={status.key}
@@ -39,21 +40,28 @@ const FeedbackListConatiner = ({ statusList }: FeedbackListConatinerProps) => {
           </button>
         ))}
       </div>
+
+      {/* List Container */}
       {statusList.map((status) => (
-        <article
+        <section
           key={status.name}
           className={cn(
-            "p-6 md:flex flex-col gap-6",
+            "py-6 sm:py-0 sm:flex flex-col gap-6 lg:gap-8 max-w-[350px] mx-auto sm:flex-1",
             currentStatus === status ? "flex" : "hidden"
           )}
         >
+          {/* Column Header */}
           <div className="flex flex-col gap-1">
-            <h3 className="text-head-3">
+            <h3 className="text-head-3 sm:text-sm lg:text-head-3">
               {status.name} <span>{`(${status.feedbacks.length})`}</span>
             </h3>
-            <span className="text-gray text-[13px]">{status.description}</span>
+            <span className="text-gray text-[13px] sm:text-sm lg:text-base">
+              {status.description}
+            </span>
           </div>
-          <ul className="flex flex-col gap-4">
+
+          {/* Feedbacks list */}
+          <ul className="grid auto-rows-fr gap-4 lg:gap-6">
             {status.feedbacks.map((feedback) => (
               <RoadmapFeedbackCard
                 key={feedback.id}
@@ -62,9 +70,9 @@ const FeedbackListConatiner = ({ statusList }: FeedbackListConatinerProps) => {
               />
             ))}
           </ul>
-        </article>
+        </section>
       ))}
-    </section>
+    </main>
   );
 };
 

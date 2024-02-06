@@ -4,7 +4,6 @@ import UserUpvotes from "../feedbacks/UserUpvotes";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
 import { useSession } from "next-auth/react";
 import { StatusList } from "./FeedbackListConatiner";
 
@@ -24,41 +23,54 @@ const RoadmapFeedbackCard = ({
   });
 
   return (
-    <li key={feedback.id} className="bg-white rounded-md pb-6 relative">
-      <div className={`h-[6px] ${status.bgColor} rounded-t-sm`} />
-      <div className="px-6 flex flex-col gap-4">
+    <li className="bg-white rounded-md px-6 sm:px-5 lg:px-8 flex flex-col pb-6 lg:pb-8 gap-4 lg:gap-2">
+      {/* header */}
+      <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6">
+        <div
+          className={`h-[6px] ${status.bgColor} rounded-t-sm -mx-6 sm:-mx-5 lg:-mx-8`}
+        />
         <div
           key={status.name}
-          className="flex text-gray gap-2 items-center pt-4"
+          className="flex text-gray gap-2 sm:gap-4 items-center"
         >
           <div className={`${status.bgColor} w-2 h-2 rounded-full`} />
-          <span className="text-[13px]">{status.name}</span>
+          <span className="text-[13px] lg:text-base">{status.name}</span>
         </div>
-        <Link href={`/feedback/${feedback.id}`} className=" hover:text-blue">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-[13px] font-bold tracking-[-0.1181px]">
+      </div>
+
+      {/* feedback */}
+      <div className="flex flex-col gap-4 h-full">
+        <Link
+          href={`/feedback/${feedback.id}`}
+          className="hover:text-blue flex flex-col gap-2 justify-between h-full sm:gap-6 lg:gap-4"
+        >
+          <div className="flex flex-col gap-2 lg:gap-1">
+            <h2 className="text-[13px] lg:text-head-3 font-bold tracking-[-0.1181px]">
               {feedback.title}
             </h2>
-            <p className="text-gray text-[13px]">{feedback.description}</p>
-            <Button
-              size="sm"
-              variant="light"
-              className="self-start mt-2 hover:bg-grayLight"
-              disabled
-            >
-              <span className="text-body-3">{feedback.category}</span>
-            </Button>
+            <p className="text-gray text-[13px] lg:text-base">
+              {feedback.description}
+            </p>
           </div>
+          <Button
+            size="sm"
+            variant="light"
+            className="self-start hover:bg-grayLight"
+            disabled
+          >
+            <span className="text-body-3">{feedback.category}</span>
+          </Button>
         </Link>
-        {/* <Suspense fallback={<div>...</div>}> */}
-        <UserUpvotes
-          votesAmount={feedback.upvotes}
-          feedbackId={feedback.id}
-          isUserUpvoted={hasUserVoted}
-        />
-        {/* </Suspense> */}
-        <div className="flex justify-end items-center">
-          <div className="flex items-center gap-1 h-8 sm:gap-2">
+        <div className="flex items-center justify-between">
+          {/* <Suspense fallback={<div>...</div>}> */}
+          <UserUpvotes
+            votesAmount={feedback.upvotes}
+            feedbackId={feedback.id}
+            isUserUpvoted={hasUserVoted}
+            className="lg:h-10"
+          />
+          {/* </Suspense> */}
+          <div className="flex items-center gap-1 lg:gap-2">
             <Image
               src="/shared/icon-comments.svg"
               alt="Comments icon"
@@ -67,7 +79,7 @@ const RoadmapFeedbackCard = ({
             />
             <span
               className={cn(
-                "text-[13px] sm:text-base font-bold text-grayDark w-[18px] text-center",
+                "text-[13px] lg:text-base font-bold text-grayDark w-[18px] text-center",
                 feedback.comments.length === 0 && "text-opacity-50"
               )}
             >
