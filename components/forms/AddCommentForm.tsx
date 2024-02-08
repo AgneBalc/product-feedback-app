@@ -11,7 +11,7 @@ import {
 import { createComment } from "@/lib/actions/comments.actions";
 import { cn } from "@/lib/utils";
 import { AddCommentFormProps } from "@/lib/types";
-import Loading from "../../app/loading";
+import Loading from "@/app/loading";
 
 const initialCommentLength = 250;
 
@@ -32,7 +32,6 @@ const AddCommentForm = ({
   });
 
   const commentLength = watch("content", "").trim().length;
-
   let charsLeft = initialCommentLength - commentLength;
   if (charsLeft < 0) {
     charsLeft = 0;

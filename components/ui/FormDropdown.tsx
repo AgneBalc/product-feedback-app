@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Dropdown from "@/components/ui/Dropdown";
 import Label from "./Label";
 import { FormDropdownProps } from "@/lib/types";
+import useOnClickOutsite from "@/hooks/useOnClickOutsite";
 
 const FormDropdown = React.forwardRef<HTMLInputElement, FormDropdownProps>(
   (
@@ -13,13 +14,18 @@ const FormDropdown = React.forwardRef<HTMLInputElement, FormDropdownProps>(
     ref
   ) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useOnClickOutsite(dropdownRef, () => {
+      setIsDropdownOpen(false);
+    });
 
     const selectedValue = getValues(name);
 
     return (
       <div className="flex flex-col gap-4 w-full">
         <Label label={label} description={description} />
-        <div className="relative h-full flex items-center">
+        <div className="relative h-full flex items-center" ref={dropdownRef}>
           <div className="relative flex gap-2 items-center w-full">
             <Button
               onClick={() => {

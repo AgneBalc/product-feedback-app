@@ -1,19 +1,25 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sortOrderList } from "@/constants";
 import Dropdown from "@/components/ui/Dropdown";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SortByButtonProps, SortOrderList } from "@/lib/types";
 import { updateQueryParams } from "@/lib/utils";
+import useOnClickOutsite from "@/hooks/useOnClickOutsite";
 
 const SortByButton = ({ noSuggestions }: SortByButtonProps) => {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const buttonRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutsite(buttonRef, () => {
+    setIsSortOpen(false);
+  });
 
   const sortBy = searchParams.get("sort") || sortOrderList[0].name;
   const existingSortItem = sortOrderList.find((item) => item.name === sortBy);
@@ -29,7 +35,7 @@ const SortByButton = ({ noSuggestions }: SortByButtonProps) => {
   };
 
   return (
-    <div className="relative h-full flex items-center">
+    <div className="relative h-full flex items-center" ref={buttonRef}>
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => setIsSortOpen((prev) => !prev)}

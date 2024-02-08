@@ -24,7 +24,7 @@ export default function RootLayout({
       lang="en"
       className={cn("bg-grayLightest text-grayDark", jost.className)}
     >
-      <body className="sm:py-14 lg:pt-20 sm:px-4 pb-14">
+      <body className="sm:py-14 lg:pt-20 sm:px-4 pb-14 relative">
         <Provider>{children}</Provider>
       </body>
     </html>

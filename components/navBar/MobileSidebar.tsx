@@ -20,7 +20,7 @@ const MobileSidebar = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Button
-        className="block sm:hidden absolute right-6 top-7 hover:opacity-75"
+        className="block sm:hidden hover:opacity-75"
         onClick={toggleModal}
       >
         {isMenuOpen ? (
@@ -40,7 +40,7 @@ const MobileSidebar = ({ children }: { children: React.ReactNode }) => {
         )}
       </Button>
       {isMenuOpen && (
-        <div className="bg-black bg-opacity-50 left-0 right-0 bottom-0 fixed top-[72px] animate-in fade-in-25 sm:hidden">
+        <div className="bg-black bg-opacity-50 left-0 right-0 h-full z-40 absolute top-[72px] animate-in fade-in-25 sm:hidden">
           <Dropdown className="right-0 w-[271px] h-full bg-grayLightest p-6 flex flex-col gap-6 top-0">
             <Filter onCloseMenu={handleCloseMenu} />
             {children}
