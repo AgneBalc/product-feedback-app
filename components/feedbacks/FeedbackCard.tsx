@@ -5,14 +5,9 @@ import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { ExtendedFeedback } from "@/lib/types/db";
+import { FeedbackCardProps } from "@/lib/types";
 
-interface FeedbackProps {
-  feedback: ExtendedFeedback;
-  isDetailPage?: boolean;
-}
-
-const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackProps) => {
+const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackCardProps) => {
   const session = await auth();
 
   const hasUserVoted = feedback.upvotedBy.find(

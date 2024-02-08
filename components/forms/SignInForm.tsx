@@ -3,10 +3,10 @@
 import FormInput from "@/components/ui/FormInput";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/actions/login";
 import { useForm } from "react-hook-form";
 import { UserSignInSchema, UserSignInType } from "@/lib/validators/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "@/lib/actions/user.actions";
 
 const SignInForm = () => {
   const {

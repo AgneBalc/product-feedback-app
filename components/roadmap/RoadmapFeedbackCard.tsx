@@ -1,16 +1,10 @@
-import { ExtendedFeedback } from "@/lib/types/db";
 import Button from "../ui/Button";
 import UserUpvotes from "../feedbacks/UserUpvotes";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { StatusList } from "./FeedbackListConatiner";
-
-interface FeedbackListConatinerProps {
-  status: StatusList;
-  feedback: ExtendedFeedback;
-}
+import { FeedbackListConatinerProps } from "@/lib/types";
 
 const RoadmapFeedbackCard = ({
   status,

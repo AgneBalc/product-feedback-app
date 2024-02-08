@@ -1,13 +1,6 @@
-import { db } from "@/lib/db";
 import CommentCard from "./CommentCard";
-import { ExtendedComment } from "@/lib/types/db";
-import { getComments } from "../../lib/actions/comments.actions";
-
-interface CommentsSectionProps {
-  feedbackId: string;
-  replyToComment?: ExtendedComment;
-  replyToUsername?: string;
-}
+import { getComments } from "@/lib/actions/comments.actions";
+import { CommentsSectionProps } from "@/lib/types";
 
 const CommentsSection = async ({
   replyToUsername,

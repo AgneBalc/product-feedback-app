@@ -4,14 +4,13 @@ import Button from "@/components/ui/Button";
 import { useState } from "react";
 import AddCommentForm from "@/components/forms/AddCommentForm";
 import { cn } from "@/lib/utils";
+import { CommentReplyProps } from "@/lib/types";
 
-interface CommentReply {
-  feedbackId: string;
-  commentId: string;
-  className?: string;
-}
-
-const CommentReply = ({ feedbackId, commentId, className }: CommentReply) => {
+const CommentReply = ({
+  feedbackId,
+  commentId,
+  className,
+}: CommentReplyProps) => {
   const [isReplaying, setIsReplaying] = useState(false);
 
   const toggleReply = () => setIsReplaying((prev) => !prev);

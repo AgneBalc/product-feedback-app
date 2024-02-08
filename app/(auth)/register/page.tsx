@@ -1,5 +1,5 @@
 import FormWrapper from "@/components/shared/FormWrapper";
-import RegisterForm from "../../../components/forms/RegisterForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 import Link from "next/link";
 
 const RegisterPage = () => {

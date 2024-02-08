@@ -12,17 +12,13 @@ import {
   editFeedbackSchema,
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ExtendedFeedback } from "@/lib/types/db";
 import { deleteFeedback, updateFeedback } from "@/lib/actions/feedback.actions";
 import { useTransition } from "react";
-
-interface EditFeedbackForm {
-  feedback: ExtendedFeedback;
-}
+import { EditFeedbackFormProps } from "@/lib/types";
 
 const statusNamesList = statusList.map((item) => item.name);
 
-const EditFeedbackForm = ({ feedback }: EditFeedbackForm) => {
+const EditFeedbackForm = ({ feedback }: EditFeedbackFormProps) => {
   const router = useRouter();
   let [isPending, startTransition] = useTransition();
 

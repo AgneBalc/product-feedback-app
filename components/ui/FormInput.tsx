@@ -1,14 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Label from "./Label";
-import { FieldError } from "react-hook-form";
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  description?: string;
-  error?: FieldError;
-}
+import { InputProps } from "@/lib/types";
 
 const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, description, error, ...props }, ref) => {

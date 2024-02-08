@@ -1,14 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import Label from "./Label";
-import { FieldError } from "react-hook-form";
-
-export interface TextFieldProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  description?: string;
-  error?: FieldError;
-}
+import { TextFieldProps } from "@/lib/types";
 
 const FormTextField = React.forwardRef<HTMLTextAreaElement, TextFieldProps>(
   ({ className, label, name, description, error, ...props }, ref) => {

@@ -4,10 +4,7 @@ import { categories } from "@/constants";
 import Button from "@/components/ui/Button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { removeKeysFromQuery, updateQueryParams } from "@/lib/utils";
-
-interface FilterProps {
-  onCloseMenu?: () => void;
-}
+import { FilterProps } from "@/lib/types";
 
 const Filter = ({ onCloseMenu }: FilterProps) => {
   const searchParams = useSearchParams();

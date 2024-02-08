@@ -1,11 +1,7 @@
 import { cn } from "@/lib/utils";
 import GoBackButton from "./GoBackButton";
 import Image from "next/image";
-
-export interface FormWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  image: string;
-}
+import { FormWrapperProps } from "@/lib/types";
 
 const FormWrapper = ({
   title,
@@ -15,7 +11,7 @@ const FormWrapper = ({
   ...props
 }: FormWrapperProps) => {
   return (
-    <main className="max-w-[327px] mt-[34px] sm:mt-0 sm:max-w-[540px] mx-auto">
+    <main className="min-w-[375px] px-6 mt-[34px] sm:mt-0 max-w-[540px] mx-auto">
       <GoBackButton />
       <div
         className={cn(

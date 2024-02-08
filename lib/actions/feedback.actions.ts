@@ -68,7 +68,7 @@ export const getAllNotSuggestions = async () => {
         comments: true,
         upvotedBy: true,
       },
-      orderBy: sortOrderList[0].orderBy,
+      orderBy: { upvotes: "desc" },
     });
 
     return data;

@@ -5,19 +5,7 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import Dropdown from "@/components/ui/Dropdown";
 import Label from "./Label";
-import { FieldError, UseFormGetValues, UseFormSetValue } from "react-hook-form";
-
-// interface FormDropdownProps {
-interface FormDropdownProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  itemsList: string[];
-  label: string;
-  description?: string;
-  name: string;
-  error?: FieldError;
-  setValue: UseFormSetValue<any>;
-  getValues: UseFormGetValues<any>;
-}
+import { FormDropdownProps } from "@/lib/types";
 
 const FormDropdown = React.forwardRef<HTMLInputElement, FormDropdownProps>(
   (

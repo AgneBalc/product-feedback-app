@@ -1,5 +1,5 @@
 import FormWrapper from "@/components/shared/FormWrapper";
-import SignInForm from "../../../components/forms/SignInForm";
+import SignInForm from "@/components/forms/SignInForm";
 import Link from "next/link";
 
 const SignInPage = () => {

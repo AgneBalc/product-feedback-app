@@ -1,6 +1,7 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { cva } from "class-variance-authority";
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
+import { ButtonProps } from "@/lib/types";
 
 const buttonVariants = cva(
   "border-none inline-flex items-center justify-center transition ease-in-out duration-300 focus:outline-none rounded-md text-[13px] font-medium sm:text-head-4 tracking-[0.25px]",
@@ -20,14 +21,6 @@ const buttonVariants = cva(
     },
   }
 );
-
-// It is our ButtonProps interafce it extends ButtonHTMLAttributes of HTMLButtonElement interface
-// Also extends from class-variance-authority lastly we passed our forwarded Reference type
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  ref?: React.Ref<HTMLButtonElement>;
-}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ size, variant, className, children, ...props }, ref) => {

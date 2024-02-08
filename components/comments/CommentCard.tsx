@@ -1,13 +1,8 @@
 import CommentsSection from "./CommentsSection";
 import { cn } from "@/lib/utils";
-import { ExtendedComment } from "@/lib/types/db";
 import MobileComment from "./MobileComment";
 import DesktopComment from "./DesktopComment";
-
-export interface CommentCardProps {
-  comment: ExtendedComment;
-  replyToUsername?: string;
-}
+import { CommentCardProps } from "@/lib/types";
 
 const CommentCard = ({ comment, replyToUsername }: CommentCardProps) => {
   return (

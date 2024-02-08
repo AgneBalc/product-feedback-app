@@ -5,18 +5,15 @@ import ActionBar from "@/components/actionBar/ActionBar";
 import { Suspense } from "react";
 import EmptySuggestions from "@/components/shared/EmptySuggestions";
 import FeedbackCard from "@/components/feedbacks/FeedbackCard";
+import { SuggestionsPageProps } from "@/lib/types";
 
-const SuggestionsPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const SuggestionsPage = async ({ searchParams }: SuggestionsPageProps) => {
   const feedbacks = await getAllSuggestions(searchParams);
 
   if (!feedbacks) return notFound();
 
   return (
-    <div className="relative min-w-[375px] sm:max-w-[689px] lg:max-w-[1100px] mx-auto">
+    <div className="relative min-w-[375px] max-w-[1100px] mx-auto">
       <Navbar />
       <main className="sm:mt-10 lg:mt-0 lg:ml-[286px]">
         <ActionBar totalFeedbacks={feedbacks.length} />

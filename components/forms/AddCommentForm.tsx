@@ -10,16 +10,15 @@ import {
 } from "@/lib/validators/comment";
 import { createComment } from "@/lib/actions/comments.actions";
 import { cn } from "@/lib/utils";
-
-interface AddCommentForm {
-  feedbackId: string;
-  replyToId?: string;
-  onReply?: () => void;
-}
+import { AddCommentFormProps } from "@/lib/types";
 
 const initialCommentLength = 250;
 
-const AddCommentForm = ({ feedbackId, replyToId, onReply }: AddCommentForm) => {
+const AddCommentForm = ({
+  feedbackId,
+  replyToId,
+  onReply,
+}: AddCommentFormProps) => {
   const {
     register,
     handleSubmit,

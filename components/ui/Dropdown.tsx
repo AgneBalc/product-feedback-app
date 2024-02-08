@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
-
-interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {}
+import { DropdownProps } from "@/lib/types";
 
 const Dropdown = ({ children, className, ...props }: DropdownProps) => {
   return (

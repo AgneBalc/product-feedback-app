@@ -3,16 +3,9 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
-import { upvote } from "@/lib/actions/upvote";
-import { UserUpvote } from "@prisma/client";
-import { cn } from "../../lib/utils";
-
-interface UserUpvotesProps {
-  votesAmount: number;
-  feedbackId: string;
-  isUserUpvoted: UserUpvote | undefined;
-  className?: string;
-}
+import { upvote } from "@/lib/actions/upvote.actions";
+import { cn } from "@/lib/utils";
+import { UserUpvotesProps } from "@/lib/types";
 
 const UserUpvotes = ({
   votesAmount,

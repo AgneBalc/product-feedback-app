@@ -6,12 +6,8 @@ import { sortOrderList } from "@/constants";
 import Dropdown from "@/components/ui/Dropdown";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SortOrderList } from "@/lib/types";
+import { SortByButtonProps, SortOrderList } from "@/lib/types";
 import { updateQueryParams } from "@/lib/utils";
-
-interface SortByButtonProps {
-  noSuggestions: boolean;
-}
 
 const SortByButton = ({ noSuggestions }: SortByButtonProps) => {
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -60,7 +56,7 @@ const SortByButton = ({ noSuggestions }: SortByButtonProps) => {
         />
       </div>
       {isSortOpen && (
-        <Dropdown className="top-14 sm:top-[72px] rounded-md w-64 mt-4 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
+        <Dropdown className="top-14 sm:top-[62px] rounded-md w-64 shadow-3xl bg-white divide-y divide-[#e1e3ea]">
           {sortOrderList.map((item) => {
             return (
               <div

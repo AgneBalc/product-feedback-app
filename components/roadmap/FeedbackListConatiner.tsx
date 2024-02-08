@@ -1,18 +1,9 @@
 "use client";
 
-import { Status } from "@/lib/types";
+import { FeedbackListConatinerProps } from "@/lib/types";
 import RoadmapFeedbackCard from "./RoadmapFeedbackCard";
-import { ExtendedFeedback } from "@/lib/types/db";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-
-export type StatusList = Status & {
-  feedbacks: ExtendedFeedback[];
-};
-
-interface FeedbackListConatinerProps {
-  statusList: StatusList[];
-}
 
 const FeedbackListConatiner = ({ statusList }: FeedbackListConatinerProps) => {
   const [selectedTab, setSelectedTab] = useState(statusList[0].name);

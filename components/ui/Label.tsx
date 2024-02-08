@@ -1,7 +1,4 @@
-export interface LabelProps {
-  label?: string;
-  description?: string;
-}
+import { LabelProps } from "@/lib/types";
 
 const Label = ({ label, description }: LabelProps) => {
   return (

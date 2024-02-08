@@ -2,10 +2,7 @@ import Button from "@/components/ui/Button";
 import SortByButton from "./SortByButton";
 import Image from "next/image";
 import Link from "next/link";
-
-interface ActionBarProps {
-  totalFeedbacks: number;
-}
+import { ActionBarProps } from "@/lib/types";
 
 const ActionBar = ({ totalFeedbacks }: ActionBarProps) => {
   return (

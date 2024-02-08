@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { CommentCardProps } from "./CommentCard";
 import CommentReply from "./CommentReply";
 import { FaUser } from "react-icons/fa";
+import { CommentCardProps } from "@/lib/types";
 
 const MobileComment = ({ comment, replyToUsername }: CommentCardProps) => {
   return (

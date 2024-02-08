@@ -1,15 +1,10 @@
 "use server";
 
-import { CreateCommentType, createCommentSchema } from "../validators/comment";
+import { createCommentSchema } from "../validators/comment";
 import { auth } from "../auth";
 import { db } from "../db";
 import { revalidatePath } from "next/cache";
-
-interface createCommentProps {
-  formData: CreateCommentType;
-  feedbackId: string;
-  replyToId?: string;
-}
+import { createCommentProps } from "../types";
 
 export const createComment = async ({
   formData,

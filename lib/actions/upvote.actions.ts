@@ -54,7 +54,6 @@ export const upvote = async ({ feedbackId }: UpvotedByType) => {
           },
         },
       });
-      revalidatePath("/");
       revalidatePath(`/feedback/${feedbackId}`);
 
       return { data: updatedFeedback };
