@@ -26,15 +26,17 @@ Users should be able to:
 - Filter suggestions by category
 - Add comments and replies to a product feedback request
 - Upvote product feedback requests
-- **Bonus**: Keep track of any changes, even after refreshing the browser
+- Keep track of any changes, even after refreshing the browser
 
 ### Screenshots
 
-  <img src="/public/screenshots/localhost_3000_ (6).png" alt="Home page desktop layout screenshot"/>
-  <img src="/public/screenshots/localhost_3000_ (7).png" alt="Home page mobile layout screenshot"/>
-  <img src="/public/screenshots/Create_screenshot.png" alt="Create Feedback screenshot"/>
-  <img src="/public/screenshots/Roadmap_desktop.png" alt="Roadmap page screenshot" />
-  <img src="/public/screenshots/single_feedback.png" alt="Feedback page screenshot"/>
+<div align="center">
+  <img src="/public/screenshots/localhost_3000_ (6).png" alt="Home page desktop layout screenshot" width="600"/>
+  <img src="/public/screenshots/localhost_3000_ (7).png" alt="Home page mobile layout screenshot" width="250"/>
+  <img src="/public/screenshots/Roadmap_desktop.png" alt="Roadmap page screenshot" width="600"/>
+  <img src="/public/screenshots/single_feedback.png" alt="Feedback page screenshot" width="350"/>
+  <img src="/public/screenshots/Create_screenshot.png" alt="Create Feedback screenshot" width="350"/>
+</div>
 
 ### Links
 
