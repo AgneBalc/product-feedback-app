@@ -1,5 +1,3 @@
-> ⚠️ Work in Progress
-
 # Frontend Mentor - Product feedback app solution
 
 This is a solution to the [Product feedback app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
@@ -8,10 +6,11 @@ This is a solution to the [Product feedback app challenge on Frontend Mentor](ht
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
+  - [Screenshots](#screenshots)
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
+- [Running it locally](#running-it-locally)
 
 ## Overview
 
@@ -31,14 +30,15 @@ Users should be able to:
 
 ### Screenshots
 
-<div align="center">
-  <img src="/public/screenshots/localhost_3000_ (7).png" alt="Screenshot 3" width="200"/>
-  <img src="/public/screenshots/localhost_3000_ (2).png" alt="Screenshot 1" width="300"/>
-  <img src="/public/screenshots/localhost_3000_ (6).png" alt="Screenshot 2" width="450"/>
-</div>
+  <img src="/public/screenshots/localhost_3000_ (6).png" alt="Home page desktop layout screenshot"/>
+  <img src="/public/screenshots/localhost_3000_ (7).png" alt="Home page mobile layout screenshot"/>
+  <img src="/public/screenshots/Create_screenshot.png" alt="Create Feedback screenshot"/>
+  <img src="/public/screenshots/Roadmap_desktop.png" alt="Roadmap page screenshot" />
+  <img src="/public/screenshots/single_feedback.png" alt="Feedback page screenshot"/>
 
 ### Links
 
+- [Live Site URL](https://product-feedback-app-lilac.vercel.app/)
 - [Solution URL](https://github.com/AgneBalc/product-feedback-app/tree/main)
 
 ## My process
@@ -53,3 +53,24 @@ Users should be able to:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Auth.js](https://authjs.dev/)
 - [Zod](https://zod.dev/)
+
+## Running it locally
+
+You must have [Node.js](https://nodejs.org/en) installed on your computer before you can run the project locally.
+Once installed, you can proceed to clone the project:
+
+```
+    git clone https://github.com/AgneBalc/product-feedback-app.git
+```
+
+Then, change the working directory to the cloned project:
+
+```
+    cd product-feedback-app
+```
+
+And finally, install the project's dependencies:
+
+```
+    npm install
+```
