@@ -98,7 +98,7 @@ export interface FeedbackListConatinerProps {
   statusList: StatusList[];
 }
 
-export interface FeedbackListConatinerProps {
+export interface RoadmapFeedbackCardProps {
   status: StatusList;
   feedback: ExtendedFeedback;
 }

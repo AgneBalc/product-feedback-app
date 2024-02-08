@@ -4,12 +4,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { FeedbackListConatinerProps } from "@/lib/types";
+import { RoadmapFeedbackCardProps } from "@/lib/types";
 
 const RoadmapFeedbackCard = ({
   status,
   feedback,
-}: FeedbackListConatinerProps) => {
+}: RoadmapFeedbackCardProps) => {
   const { data: session } = useSession();
 
   const hasUserVoted = feedback.upvotedBy.find((vote) => {
