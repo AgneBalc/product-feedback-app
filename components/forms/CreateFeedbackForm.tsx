@@ -13,6 +13,7 @@ import {
 } from "@/lib/validators/feedback";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFeedback } from "@/lib/actions/feedback.actions";
+import Loading from "@/app/loading";
 
 const CreateFeedbackForm = () => {
   const router = useRouter();
@@ -81,7 +82,14 @@ const CreateFeedbackForm = () => {
           disabled={isSubmitting}
           className="sm:order-last"
         >
-          Add Feedback
+          {isSubmitting ? (
+            <span className="flex gap-2">
+              <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+              <span>Adding...</span>
+            </span>
+          ) : (
+            "Add Feedback"
+          )}
         </Button>
         <Button
           variant="cancel"

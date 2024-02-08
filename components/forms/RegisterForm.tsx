@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { UserRegisterSchema, UserRegisterType } from "@/lib/validators/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "@/lib/actions/user.actions";
+import Loading from "@/app/loading";
 
 const RegisterForm = () => {
   const {
@@ -81,12 +82,20 @@ const RegisterForm = () => {
           type="submit"
           disabled={isSubmitting}
         >
-          Create Account
+          {isSubmitting ? (
+            <span className="flex gap-2">
+              <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+              <span>Creating...</span>
+            </span>
+          ) : (
+            "Create Account"
+          )}
         </Button>
         <Button
           variant="cancel"
           size="md"
           type="button"
+          disabled={isSubmitting}
           onClick={() => router.push("/")}
         >
           Cancel

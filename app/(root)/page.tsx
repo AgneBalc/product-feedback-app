@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import EmptySuggestions from "@/components/shared/EmptySuggestions";
 import FeedbackCard from "@/components/feedbacks/FeedbackCard";
 import { SuggestionsPageProps } from "@/lib/types";
+import Loading from "../loading";
 
 const SuggestionsPage = async ({ searchParams }: SuggestionsPageProps) => {
   const feedbacks = await getAllSuggestions(searchParams);
@@ -18,7 +19,9 @@ const SuggestionsPage = async ({ searchParams }: SuggestionsPageProps) => {
       <main className="sm:mt-10 lg:mt-0 lg:ml-[286px]">
         <ActionBar totalFeedbacks={feedbacks.length} />
         <section className="pt-8 sm:pt-6 px-6 sm:px-0 flex flex-col gap-4 lg:gap-5">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={<Loading className="fill-purple w-6 h-6 sm:w-8 sm:h-8" />}
+          >
             {feedbacks.length === 0 ? (
               <EmptySuggestions />
             ) : (

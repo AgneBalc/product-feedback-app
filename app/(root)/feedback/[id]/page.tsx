@@ -7,6 +7,8 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { getFeedbackById } from "@/lib/actions/feedback.actions";
 import { FeedbackPageProps } from "@/lib/types";
+import { Suspense } from "react";
+import Loading from "../../../loading";
 
 const FeedbackDetailPage = async ({ params }: FeedbackPageProps) => {
   const { id } = params;
@@ -27,17 +29,19 @@ const FeedbackDetailPage = async ({ params }: FeedbackPageProps) => {
       </div>
       <section className="flex flex-col gap-6">
         <FeedbackCard feedback={feedback} isDetailPage={!!id} />
-        {feedback.comments.length > 0 && (
-          <section className="w-full rounded-md bg-white px-6 sm:px-8 pt-6 lg:pb-4">
-            <h1 className="text-head-3 sm:-mb-1">
-              {feedback.comments.length} Comment
-              {feedback.comments.length > 1 && "s"}
-            </h1>
-            <div className="divide-y divide-[#8C92B3] divide-opacity-25">
-              <CommentsSection feedbackId={feedback.id} />
-            </div>
-          </section>
-        )}
+        <Suspense fallback={<Loading className="fill-purple w-6 h-6" />}>
+          {feedback.comments.length > 0 && (
+            <section className="w-full rounded-md bg-white px-6 sm:px-8 pt-6 lg:pb-4">
+              <h1 className="text-head-3 sm:-mb-1">
+                {feedback.comments.length} Comment
+                {feedback.comments.length > 1 && "s"}
+              </h1>
+              <div className="divide-y divide-[#8C92B3] divide-opacity-25">
+                <CommentsSection feedbackId={feedback.id} />
+              </div>
+            </section>
+          )}
+        </Suspense>
         <AddCommentForm feedbackId={feedback.id} />
       </section>
     </main>

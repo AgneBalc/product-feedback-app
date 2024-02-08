@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
 import { upvote } from "@/lib/actions/upvote.actions";
@@ -14,15 +14,17 @@ const UserUpvotes = ({
   className,
 }: UserUpvotesProps) => {
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
-
-  const handleVote = async () => {
-    await upvote({ feedbackId });
-    setUpvoted((prev) => !prev);
-  };
+  const [isPending, startTransition] = useTransition();
 
   return (
     <Button
-      onClick={handleVote}
+      disabled={isPending}
+      onClick={() =>
+        startTransition(async () => {
+          await upvote({ feedbackId });
+          setUpvoted((prev) => !prev);
+        })
+      }
       variant="light"
       className={cn(
         "flex items-center w-[69px] h-8 pl-4",

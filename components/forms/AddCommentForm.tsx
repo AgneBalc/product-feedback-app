@@ -11,6 +11,7 @@ import {
 import { createComment } from "@/lib/actions/comments.actions";
 import { cn } from "@/lib/utils";
 import { AddCommentFormProps } from "@/lib/types";
+import Loading from "../../app/loading";
 
 const initialCommentLength = 250;
 
@@ -89,7 +90,16 @@ const AddCommentForm = ({
             disabled={isSubmitting}
             className="text-nowrap"
           >
-            {isSubmitting ? "..." : replyToId ? "Post Reply" : "Post Comment"}
+            {isSubmitting ? (
+              <span className="flex gap-2">
+                <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Posting...</span>
+              </span>
+            ) : replyToId ? (
+              "Post Reply"
+            ) : (
+              "Post Comment"
+            )}
           </Button>
         </div>
       </form>

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { UserSignInSchema, UserSignInType } from "@/lib/validators/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/lib/actions/user.actions";
+import Loading from "@/app/loading";
 
 const SignInForm = () => {
   const {
@@ -50,13 +51,26 @@ const SignInForm = () => {
       />
       {errors.root && <p className="text-[#D73737]">{errors.root.message}</p>}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-4 sm:mt-2">
-        <Button variant="purple" size="md" type="submit">
-          Sign in
+        <Button
+          variant="purple"
+          size="md"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <span className="flex gap-2">
+              <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+              <span>Loading...</span>
+            </span>
+          ) : (
+            "Sign in"
+          )}
         </Button>
         <Button
           variant="cancel"
           size="md"
           type="button"
+          disabled={isSubmitting}
           onClick={() => router.push("/")}
         >
           Cancel

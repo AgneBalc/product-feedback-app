@@ -15,12 +15,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { deleteFeedback, updateFeedback } from "@/lib/actions/feedback.actions";
 import { useTransition } from "react";
 import { EditFeedbackFormProps } from "@/lib/types";
+import Loading from "@/app/loading";
 
 const statusNamesList = statusList.map((item) => item.name);
 
 const EditFeedbackForm = ({ feedback }: EditFeedbackFormProps) => {
   const router = useRouter();
-  let [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const existingStatus = statusList.find(
     (stat) => stat.key === feedback.status
@@ -101,7 +102,14 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackFormProps) => {
             disabled={isSubmitting}
             className="sm:order-last"
           >
-            Save Changes
+            {isSubmitting ? (
+              <span className="flex gap-2">
+                <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Saving...</span>
+              </span>
+            ) : (
+              "Save Changes"
+            )}
           </Button>
           <Button
             variant="cancel"
@@ -117,7 +125,7 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackFormProps) => {
           variant="red"
           size="md"
           type="button"
-          disabled={isSubmitting}
+          disabled={isPending || isSubmitting}
           className="sm:order-first"
           onClick={() =>
             startTransition(async () => {
@@ -125,7 +133,14 @@ const EditFeedbackForm = ({ feedback }: EditFeedbackFormProps) => {
             })
           }
         >
-          {isPending ? "Deleting..." : "Delete"}
+          {isPending ? (
+            <span className="flex gap-2">
+              <Loading className="fill-blue w-3 h-3 sm:w-4 sm:h-4" />
+              <span>Deleting...</span>
+            </span>
+          ) : (
+            "Delete"
+          )}
         </Button>
       </div>
     </form>

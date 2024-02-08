@@ -13,13 +13,9 @@ export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({ where: { id } });
 
-    // if (!user) {
-    //   return { error: "User not found" };
-    // }
-
     return user;
   } catch (error) {
-    return null;
+    throw new Error("Failed to fetch user.");
   }
 };
 
@@ -29,7 +25,7 @@ export const getUserByUsername = async (username: string) => {
 
     return user;
   } catch (error) {
-    return null;
+    throw new Error("Failed to fetch user.");
   }
 };
 

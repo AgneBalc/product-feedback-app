@@ -56,14 +56,12 @@ const RoadmapFeedbackCard = ({
           </Button>
         </Link>
         <div className="flex items-center justify-between">
-          {/* <Suspense fallback={<div>...</div>}> */}
           <UserUpvotes
             votesAmount={feedback.upvotes}
             feedbackId={feedback.id}
             isUserUpvoted={hasUserVoted}
             className="lg:h-10"
           />
-          {/* </Suspense> */}
           <div className="flex items-center gap-1 lg:gap-2">
             <Image
               src="/shared/icon-comments.svg"
