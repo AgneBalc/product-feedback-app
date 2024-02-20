@@ -6,30 +6,48 @@ import Image from "next/image";
 import { upvote } from "@/lib/actions/upvote.actions";
 import { cn } from "@/lib/utils";
 import { UserUpvotesProps } from "@/lib/types";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const UserUpvotes = ({
   votesAmount,
-  feedbackId,
-  isUserUpvoted,
+  feedback,
   className,
 }: UserUpvotesProps) => {
-  const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
+  const { data: session } = useSession();
+
+  const hasUserVoted = feedback.upvotedBy.find((vote) => {
+    return vote.userId === session?.user.id;
+  });
+
+  const [upvoted, setUpvoted] = useState<boolean>(!!hasUserVoted);
   const [optimisticVotes, addOptimisticVotes] = useOptimistic(
     votesAmount,
-    (state, isUserUpvoted) => (isUserUpvoted ? state - 1 : state + 1)
+    (state, isUpvoted) => (isUpvoted ? state - 1 : state + 1)
   );
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const feedbackId = feedback.id;
+
+  const handleVote = async () => {
+    if (!session?.user) {
+      router.push("/sign-in");
+      return;
+    }
+
+    startTransition(() => {
+      addOptimisticVotes(upvoted);
+    });
+
+    setUpvoted((prev) => !prev);
+    await upvote({ feedbackId });
+  };
 
   return (
     <Button
       disabled={isPending}
-      onClick={async () => {
-        startTransition(() => {
-          addOptimisticVotes(upvoted);
-        });
-        setUpvoted((prev) => !prev);
-        await upvote({ feedbackId });
-      }}
+      onClick={handleVote}
       variant="light"
       className={cn(
         "flex items-center w-[69px] h-8 pl-4",

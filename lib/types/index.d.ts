@@ -1,4 +1,4 @@
-import { STATUS, UserUpvote } from "@prisma/client";
+import { STATUS } from "@prisma/client";
 import { ExtendedComment, ExtendedFeedback } from "@/lib/types/db";
 import { ButtonHTMLAttributes } from "react";
 import { VariantProps } from "class-variance-authority";
@@ -71,9 +71,8 @@ export interface FeedbackCardProps {
 
 export interface UserUpvotesProps {
   votesAmount: number;
-  feedbackId: string;
-  isUserUpvoted: UserUpvote | undefined;
   className?: string;
+  feedback: ExtendedFeedback;
 }
 
 export interface AddCommentFormProps {

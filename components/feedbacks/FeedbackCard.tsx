@@ -1,18 +1,11 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import UserUpvotes from "./UserUpvotes";
-import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { FeedbackCardProps } from "@/lib/types";
 
 const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackCardProps) => {
-  const session = await auth();
-
-  const hasUserVoted = feedback.upvotedBy.find(
-    (vote) => vote.userId === session?.user.id
-  );
-
   return (
     <article
       className={cn(
@@ -43,8 +36,7 @@ const FeedbackCard = async ({ feedback, isDetailPage }: FeedbackCardProps) => {
       </Link>
       <UserUpvotes
         votesAmount={feedback.upvotes}
-        feedbackId={feedback.id}
-        isUserUpvoted={hasUserVoted}
+        feedback={feedback}
         className="sm:flex-col sm:justify-end sm:gap-2 absolute left-6 bottom-6 sm:left-8 sm:top-7 sm:pl-0 sm:h-[53px] sm:w-10 sm:pb-2"
       />
       <div className="flex justify-end items-center">

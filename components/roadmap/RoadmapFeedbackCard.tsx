@@ -3,19 +3,12 @@ import UserUpvotes from "../feedbacks/UserUpvotes";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { RoadmapFeedbackCardProps } from "@/lib/types";
 
 const RoadmapFeedbackCard = ({
   status,
   feedback,
 }: RoadmapFeedbackCardProps) => {
-  const { data: session } = useSession();
-
-  const hasUserVoted = feedback.upvotedBy.find((vote) => {
-    return vote.userId === session?.user.id;
-  });
-
   return (
     <li className="bg-white rounded-md px-6 sm:px-5 lg:px-8 flex flex-col pb-6 lg:pb-8 gap-4 lg:gap-2">
       {/* header */}
@@ -58,8 +51,7 @@ const RoadmapFeedbackCard = ({
         <div className="flex items-center justify-between">
           <UserUpvotes
             votesAmount={feedback.upvotes}
-            feedbackId={feedback.id}
-            isUserUpvoted={hasUserVoted}
+            feedback={feedback}
             className="lg:h-10"
           />
           <div className="flex items-center gap-1 lg:gap-2">
