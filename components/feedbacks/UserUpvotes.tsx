@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import Button from "../ui/Button";
 import Image from "next/image";
 import { upvote } from "@/lib/actions/upvote.actions";
@@ -14,17 +14,22 @@ const UserUpvotes = ({
   className,
 }: UserUpvotesProps) => {
   const [upvoted, setUpvoted] = useState<boolean>(!!isUserUpvoted);
+  const [optimisticVotes, addOptimisticVotes] = useOptimistic(
+    votesAmount,
+    (state, isUserUpvoted) => (isUserUpvoted ? state - 1 : state + 1)
+  );
   const [isPending, startTransition] = useTransition();
 
   return (
     <Button
       disabled={isPending}
-      onClick={() =>
-        startTransition(async () => {
-          await upvote({ feedbackId });
-          setUpvoted((prev) => !prev);
-        })
-      }
+      onClick={async () => {
+        startTransition(() => {
+          addOptimisticVotes(upvoted);
+        });
+        setUpvoted((prev) => !prev);
+        await upvote({ feedbackId });
+      }}
       variant="light"
       className={cn(
         "flex items-center w-[69px] h-8 pl-4",
@@ -47,7 +52,8 @@ const UserUpvotes = ({
           upvoted ? "text-white" : "text-grayDark"
         }`}
       >
-        {votesAmount}
+        {/* {votesAmount} */}
+        {optimisticVotes}
       </span>
     </Button>
   );
